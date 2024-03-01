@@ -29,7 +29,7 @@ export const handler = async (event) => {
 			})
 		)
 
-
+		
 		if (!getItemResponse.Item) {
 			statusCode = 404;
 			//Item not found
@@ -51,4 +51,4 @@ export const handler = async (event) => {
 		body, 
 		headers,
 	};
-}
+};
