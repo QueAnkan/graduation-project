@@ -1,0 +1,46 @@
+service: raduation-serverless
+frameworkVersion: '3'
+
+plugins:
+  -serverless-webpack
+
+package: 
+  individually: true  
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  profile: MeAnkan
+  region: eu-north-1
+  iam: 
+    role: arn:aws:iam::013575884800:role/XteamLambdaRole
+
+functions:
+  lambdaGetImageId:
+    handler: lamda-functions/LambdaGetImageId.handler
+    events: 
+      - httpApi: 
+          path: /xteam/images
+          method: GET
+
+resources: 
+  Resources: 
+  # Image Table
+    ImageTable: 
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain 
+      Properties: 
+        TableName: ImageTable
+        AttributeDefinitions: 
+          - AttributeName: "pk"
+            AttributeType: "S"
+          - AttributeName: "imageId"
+            AttributeType: "S"
+        BillingMode: PAY_PER_REQUEST
+        PointInTimeRecoverySpecification: 
+          PointInTimeRecoveryEnabled: false
+        KeySchema: 
+          - AttributeName: "pk"
+            KeyType: HASH
+          - AttributeName: "imageId"
+            Keytype: RANGE
