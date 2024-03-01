@@ -20,7 +20,7 @@ functions:
     handler: lamda-functions/LambdaGetImageId.handler
     events: 
       - httpApi: 
-          path: /xteam/images
+          path: /xteam/images/{imageId}
           method: GET
 
 resources: 
