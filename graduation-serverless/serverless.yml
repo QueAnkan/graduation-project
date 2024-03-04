@@ -1,4 +1,4 @@
-service: raduation-serverless
+service: graduation-serverless
 frameworkVersion: '3'
 
 plugins:
@@ -32,7 +32,7 @@ resources:
       Properties: 
         TableName: ImageTable
         AttributeDefinitions: 
-          - AttributeName: "pk"
+          - AttributeName: "PK"
             AttributeType: "S"
           - AttributeName: "imageId"
             AttributeType: "S"
@@ -40,7 +40,7 @@ resources:
         PointInTimeRecoverySpecification: 
           PointInTimeRecoveryEnabled: false
         KeySchema: 
-          - AttributeName: "pk"
+          - AttributeName: "PK"
             KeyType: HASH
           - AttributeName: "imageId"
-            Keytype: RANGE
+            KeyType: RANGE
