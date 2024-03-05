@@ -22,7 +22,7 @@ export const handler = async (event) => {
 		new GetCommand({
 			TableName: tableName,
 			Key: {
-				"pk": "images",
+				"PK": "images",
 				"imageId": imageId,
 			},
 		})
@@ -40,8 +40,8 @@ export const handler = async (event) => {
 			new DeleteCommand({
 				TableName: tableName, 
 				Key: {
-					"pk": "image",
-					"imageId": "imageId"
+					"PK": "image",
+					"imageId": imageId
 				},
 			})
 		);

@@ -12,8 +12,9 @@ const Root = () => {
 	<Header/>
 	<main>
 		<Outlet/>
+		<Footer/>
 	</main>
-	<Footer/>
+	
 	<Navigation/>
 	</>
 	)

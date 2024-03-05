@@ -8,16 +8,16 @@ const dynamo = DynamoDBDocumentClient.from(client);
 
 export const handler = async () => {
 	const tableName = "ImageTable";
-	const partitionKey = "images" //pk value
+	const partitionKey = "images" //PK value
 
 
 	try {
 		const { Items } = await dynamo.send(
 			new QueryCommand({
 				TableName: tableName, 
-				KeyConditionExpression: "pk = :pk", 
+				KeyConditionExpression: "PK = :PK", 
 				ExpressionAttributeValues: {
-					":pk": partitionKey,
+					":PK": partitionKey,
 				},
 			})
 		); 
@@ -29,7 +29,7 @@ export const handler = async () => {
 	} catch (error) {
 		return {
 			statusCode: error.statusCode || 500,
-			headers: { "Contetn-Type": "application/json" },
+			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ message: error.message || "Internal Server Error"}),
 		};
 	}
