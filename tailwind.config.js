@@ -16,10 +16,11 @@ export default {
 			// => @media (min-with: 1024px) { ... }
 		},
 		
-		fontFamily: {
-			merienda: ['Merienda', 'cursive']
-		},
-		extend: {}
+		extend: {
+			fontFamily: {
+				display: ['Merienda', 'cursive']
+			},
+		}
 	},
 	plugins: [],
 }
