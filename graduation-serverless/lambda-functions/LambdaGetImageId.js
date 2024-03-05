@@ -23,8 +23,8 @@ export const handler = async (event) => {
 			new GetCommand({
 				TableName: tableName,
 				Key: {
-					"pk": "image",
-					"imageId": "imageId"
+					"PK": "images",
+					"imageId": imageId
 				}
 			})
 		)

@@ -17,7 +17,7 @@ provider:
 
 functions:
   lambdaGetImageId:
-    handler: lamda-functions/LambdaGetImageId.handler
+    handler: lambda-functions/LambdaGetImageId.handler
     events: 
       - httpApi: 
           path: /xteam/images/{imageId}
