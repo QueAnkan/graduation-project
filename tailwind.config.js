@@ -5,21 +5,21 @@ export default {
 		"./src/**/*.{js,jsx}",
 	],
 	Theme: {
-		extend: {
+		screens: {
 			sm: "640px",
 			// => @media (min-with: 320px) { ... }
-
+	
 			md: "768px", 
 			// => @media (min-with: 768px) { ... }
-
+	
 			lg: "1024px",
 			// => @media (min-with: 1024px) { ... }
-
-			fontFamily: {
-				merienda: ['Merienda', 'cursive']
 		},
-			
-		}
+		
+		fontFamily: {
+			merienda: ['Merienda', 'cursive']
+		},
+		extend: {}
 	},
 	plugins: [],
 }
