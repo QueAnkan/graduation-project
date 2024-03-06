@@ -17,9 +17,9 @@ export default {
 		},
 		
 		extend: {
-			fontFamily: {
-				display: ['Merienda', 'cursive']
-			},
+			// fontFamily: {
+			// 	display: ['"Merienda"', 'cursive']
+			// },
 		}
 	},
 	plugins: [],

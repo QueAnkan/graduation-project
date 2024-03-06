@@ -1,12 +1,20 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+
 @layer base {
 	li {
-		@apply p-2
+		@apply p-4
 	}
-	p {
+	/* p {
 		@apply p-3
+	} */
+	html {
+		font-family: "Wix Madefor Display", sans-serif;
+	}
+	header h1 {
+		font-family: "Merienda", cursive;
 	}
 }
