@@ -22,7 +22,7 @@ export const handler = async (event) => {
 		new GetCommand({
 			TableName: tableName,
 			Key: {
-				"pk": "images",
+				"PK": "images",
 				"imageId": imageId,
 			},
 		})
@@ -40,12 +40,12 @@ export const handler = async (event) => {
 			new DeleteCommand({
 				TableName: tableName, 
 				Key: {
-					"pk": "image",
-					"imageId": "imageId"
+					"PK": "images",
+					"imageId": imageId
 				},
 			})
 		);
-		body = `Deleted order with id: ${imageId}`
+		body = `Deleted image with id: ${imageId}`
 		}
 	} catch (error) {
 		statusCode = 500;

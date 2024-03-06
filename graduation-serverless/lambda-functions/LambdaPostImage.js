@@ -18,15 +18,20 @@ export const handler = async (event) => {
 			)
 		}
 
-		// Fungerar inte! Kan inte läsa toString och utan så blir imageId NaN
-		console.log("1", requestBody.items[0].title, requestBody.items[0].color );
+		const title = requestBody.items[0].title.trim()
+		const color = requestBody.items[0].color.trim()
 
-		if (typeof requestBody.items[0].title !== "string" || typeof requestBody.items[0].color !== "string"){
-		throw new Error("Invalid requst body, imageId is not a string")
+		console.log("title:", typeof title, "color:", typeof color );
+
+		if (typeof title !== "string" ||typeof color !== "string"){
+		throw new Error("Invalid request body, title or color is not a string.")
 		}
-		console.log("2", requestBody.items[0].title, requestBody.items[0].color );
 
-			const imageId = requestBody.items[0].title + requestBody.items[0].color
+		if (title ==="" || color === "" ){
+			throw new Error ("Invalid request body, title or color is an emty string")
+		}
+
+			const imageId = title + color
 
 			console.log("imageId:", imageId);			
 

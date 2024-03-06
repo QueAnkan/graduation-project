@@ -16,6 +16,13 @@ provider:
     role: arn:aws:iam::013575884800:role/XteamLambdaRole
 
 functions:
+  lambdaGetImages:
+    handler: lambda-functions/LambdaGetImages.handler
+    events:
+      - httpApi:
+          path: /xteam/images
+          method: GET
+
   lambdaGetImageId:
     handler: lambda-functions/LambdaGetImageId.handler
     events: 
@@ -29,6 +36,13 @@ functions:
       - httpApi:
           path: /xteam/images
           method: PUT
+
+  lambdaDeleteImage:
+    handler: lambda-functions/LambdaDeleteImageId.handler
+    events:
+      - httpApi:
+          path: /xteam/images/{imageId}
+          method: DELETE
 
 
 resources: 
