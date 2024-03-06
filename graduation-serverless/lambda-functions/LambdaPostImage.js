@@ -3,7 +3,7 @@ import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb"
 
 
 const client = new DynamoDBClient({})
-const dynamo = DynamoDBClient.from(client)
+const dynamo = DynamoDBDocumentClient.from(client)
 
 export const handler = async (event) => {
 	const tableName = "ImageTable"
@@ -17,19 +17,28 @@ export const handler = async (event) => {
 			)
 		}
 
-		const imageId = requestBody.items.title + requestBody.color
+		// Fungerar inte! Kan inte läsa toString och utan så blir imageId NaN
 
-		const newItem = {
-			PK: "images",
-			imageId: imageId,
-			alt: requestBody.items[0].alt,
-			color: requestBody.items[0].color,
-			image: requestBody.items[0].image,
-			title: requestBody.items[0].title,
-			user: requestBody.items[0].user
+		if (!requestBody.items.title && typeof requestBody.items.title === "string" && !requestBody.color && typeof requestBody.color === "string"){
+		throw new Error("Invalid requst body, imageId is not a string")
 		}
+		
+			const imageId = requestBody.items.title + requestBody.color
+console.log("imageId:", imageId);			
+
+			const newItem = {
+				PK: "images",
+				imageId: imageId,
+				alt: requestBody.items[0].alt,
+				color: requestBody.items[0].color,
+				image: requestBody.items[0].image,
+				title: requestBody.items[0].title,
+				user: requestBody.items[0].user
+			}
 
 		console.log("newItem:", newItem);
+			
+		
 
 		await dynamo.send(
 			new PutCommand({

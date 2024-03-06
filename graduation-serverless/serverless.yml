@@ -23,6 +23,14 @@ functions:
           path: /xteam/images/{imageId}
           method: GET
 
+  lambdaPostImage:
+    handler: lambda-functions/LambdaPostImage.handler
+    events:
+      - httpApi:
+          path: /xteam/images
+          method: PUT
+
+
 resources: 
   Resources: 
   # Image Table
