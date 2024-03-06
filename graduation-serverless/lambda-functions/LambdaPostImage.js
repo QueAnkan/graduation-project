@@ -9,7 +9,8 @@ export const handler = async (event) => {
 	const tableName = "ImageTable"
 
 	const requestBody = JSON.parse(event.body)
-	
+	console.log("event.body:", event.body);
+
 	try {
 		if (!requestBody.items || requestBody.items.length === 0) {
 		throw new Error(
@@ -18,13 +19,16 @@ export const handler = async (event) => {
 		}
 
 		// Fungerar inte! Kan inte läsa toString och utan så blir imageId NaN
+		console.log("1", requestBody.items[0].title, requestBody.items[0].color );
 
-		if (!requestBody.items.title && typeof requestBody.items.title === "string" && !requestBody.color && typeof requestBody.color === "string"){
+		if (typeof requestBody.items[0].title !== "string" || typeof requestBody.items[0].color !== "string"){
 		throw new Error("Invalid requst body, imageId is not a string")
 		}
-		
-			const imageId = requestBody.items.title + requestBody.color
-console.log("imageId:", imageId);			
+		console.log("2", requestBody.items[0].title, requestBody.items[0].color );
+
+			const imageId = requestBody.items[0].title + requestBody.items[0].color
+
+			console.log("imageId:", imageId);			
 
 			const newItem = {
 				PK: "images",
