@@ -40,12 +40,12 @@ export const handler = async (event) => {
 			new DeleteCommand({
 				TableName: tableName, 
 				Key: {
-					"PK": "image",
+					"PK": "images",
 					"imageId": imageId
 				},
 			})
 		);
-		body = `Deleted order with id: ${imageId}`
+		body = `Deleted image with id: ${imageId}`
 		}
 	} catch (error) {
 		statusCode = 500;
