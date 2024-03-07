@@ -9,7 +9,7 @@ const Root = () => {
 	return(
 
 	<>
-	<Header/>
+	{/* <Header/> */}
 	<main>
 		<Outlet/>
 		<Footer/>
