@@ -1,6 +1,10 @@
 import { TfiArrowCircleLeft, TfiArrowCircleRight } from "react-icons/tfi";
+import getBgColor from "../utils/api-functions/validations/style-generators/getBackgroundColor";
 
-const WeekdayCard = () => {
+
+const WeekdayCard = (props) => {
+
+	const bgColorClassName = getBgColor(props.view)
 
 	return( 
 	<>
@@ -12,18 +16,24 @@ const WeekdayCard = () => {
 			överblick för det valda aktivitetskortet. Du kan 
 			även ta bort bilder ifall du ångrar ditt val.  
 		</article>
-		<section className="flex ">
-		<button><TfiArrowCircleLeft /></button>
-		<h2></h2>
-		<button><TfiArrowCircleRight /></button>
+		<section className={`${bgColorClassName}`}>
+			<section className="flex justify-center">
+				<button><TfiArrowCircleLeft /></button>
+				<h2>{props.view}</h2>
+				<button><TfiArrowCircleRight /></button>
+			</section>
+			<section className="flex flex-col items-center">
+				<button>Ta bort bild</button>
+				<div>(img-container)</div>
+				<button>Fler bilder</button>
+				<button>Lägg till bild</button>
+			</section>	
 		</section>
-		<section>
-			<button>Ta bort bild</button>
-			<div>(img-container)</div>
-			<button>Fler bilder</button>
-			<button>Lägg till bild</button>
-		</section>	
 	</>)
 }
 
 export default WeekdayCard
+
+
+
+

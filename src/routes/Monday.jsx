@@ -4,7 +4,7 @@ import WeekdayCard from "../components/WeekdayCard";
 const Monday = () => {
 	return(
 		<>
-		<WeekdayCard/>
+		<WeekdayCard view = "Måndag"/>
 		</>
 	)
 }
