@@ -1,5 +1,6 @@
 import {MdHomeFilled, MdCalendarToday, MdEdit, MdPerson, MdFacebook} from 'react-icons/md'
 import { FaInstagram } from "react-icons/fa";
+import { NavLink } from 'react-router-dom';
 
 const Header = () => {
 
@@ -11,10 +12,10 @@ const Header = () => {
 				</div>
 				<nav>
 				<ul className="hidden lg:flex"  >
-					<li className="grid justify-items-center text-sm text-darkblue "> <MdHomeFilled className='size-7' />Till startsida </li>
-					<li className="grid justify-items-center text-sm text-darkblue"><MdCalendarToday className='size-7'/> Min veckovy</li>
+					<NavLink to="/"><li className="grid justify-items-center text-sm text-darkblue "> <MdHomeFilled className='size-7' />Till startsida </li></NavLink>
+					<NavLink to="/monday"><li className="grid justify-items-center text-sm text-darkblue"><MdCalendarToday className='size-7'/> Min veckovy</li></NavLink>
 					<li className="grid justify-items-center text-sm text-darkblue"><MdEdit className='size-7'/> Redigera veckovy</li>
-					<li className="grid justify-items-center text-sm text-darkblue"><MdPerson className='size-7'/> Admin</li>
+					<NavLink to="/admin"><li className="grid justify-items-center text-sm text-darkblue"><MdPerson className='size-7'/> Admin</li></NavLink>
 				</ul> 
 				</nav>
 				<div className="hidden lg:flex">
