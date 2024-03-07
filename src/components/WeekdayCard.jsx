@@ -24,7 +24,9 @@ const WeekdayCard = (props) => {
 			</section>
 			<section className="flex flex-col items-center">
 				<button>Ta bort bild</button>
-				<div>(img-container)</div>
+				<div className="bg-lightgray">(img-container)
+					<img src="" alt="" />
+				</div>
 				<button>Fler bilder</button>
 				<button>Lägg till bild</button>
 			</section>	
