@@ -11,7 +11,7 @@ const Root = () => {
 
 	<div className="flex flex-col">
 		<Header/>
-		<main className="mt-[150px] mx-auto max-w-5xl">
+		<main className="mt-[150px] mx-auto max-w-5xl h-screen h-svh">
 			<Outlet/>
 			<Footer/>
 		</main>	
