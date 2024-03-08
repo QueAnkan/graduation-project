@@ -20,8 +20,7 @@ export default {
 			'transparent': 'transparent'
 		},
 		screens: {
-			xs: "320px", 
-			// => @media (min-with: 320px) { ... }
+			
 			sm: "640px",
 			// => @media (min-with: 640px) { ... }
 	
