@@ -4,7 +4,7 @@ import { FaInstagram } from "react-icons/fa";
 const Footer = () => {
 
 	return (
-		<div className="flex flex justify-center w-full flex lg:hidden">
+		<div className="flex flex justify-center w-full flex absolute  bottom-20 lg:hidden">
 			<div className='flex flex-col justify-center'>
 				<h5 className='p-1 font-bold text-darkblue flex justify-center'>Kontakta oss: </h5>
 				<p className='p-1 pb-3 text-darkblue'>support@bildstod.se</p>
