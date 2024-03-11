@@ -31,9 +31,9 @@ const WeekdayCard = (props) => {
 		setIsSearchOpen((isSearchOpen) =>!isSearchOpen)
 	}
 
-function handleCloseSearch() {
-	setIsSearchOpen(false)
-}
+	function handleCloseSearch() {
+		setIsSearchOpen(false)
+	}
 
 	return( 	
 	<>
