@@ -44,6 +44,13 @@ functions:
           path: /xteam/images/{imageId}
           method: DELETE
 
+  lambdaSearchByTitle:
+    handler: lambda-functions/LambdaSearchByTitle.handler
+    events:
+      - httpApi:
+          path: /xteam/images/search
+          method: GET
+
 
 resources: 
   Resources: 
@@ -58,6 +65,8 @@ resources:
             AttributeType: "S"
           - AttributeName: "imageId"
             AttributeType: "S"
+          - AttributeName: "title"
+            AttributeType: "S" # Ange title som attributtyp
         BillingMode: PAY_PER_REQUEST
         PointInTimeRecoverySpecification: 
           PointInTimeRecoveryEnabled: false
@@ -66,3 +75,10 @@ resources:
             KeyType: HASH
           - AttributeName: "imageId"
             KeyType: RANGE
+        GlobalSecondaryIndexes: 
+          - IndexName: "TitleIndex" # Namnge indexet
+            KeySchema: 
+              - AttributeName: "title" # Ange title som partition key för indexet
+                KeyType: HASH
+            Projection: 
+              ProjectionType: ALL

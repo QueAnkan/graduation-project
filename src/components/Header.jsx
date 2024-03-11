@@ -1,7 +1,16 @@
 import {MdHomeFilled, MdCalendarToday, MdEdit, MdPerson, MdFacebook} from 'react-icons/md'
 import { FaInstagram } from "react-icons/fa";
+import { useVisibilityStatus } from '../utils/VisibleButtonsProvider'
+
 
 const Header = () => {
+
+	const {toggleIsVisible} = useVisibilityStatus()
+
+	const handleOnclick = () => {
+		toggleIsVisible()
+		console.log('click');
+	}
 
 	return(
 		<header className="w-screen h-[150px] z-10 bg-white fixed drop-shadow-md">
@@ -13,7 +22,9 @@ const Header = () => {
 				<ul className="hidden lg:flex"  >
 					<li className="grid justify-items-center text-sm text-darkblue "> <MdHomeFilled className='size-7' />Till startsida </li>
 					<li className="grid justify-items-center text-sm text-darkblue"><MdCalendarToday className='size-7'/> Min veckovy</li>
-					<li className="grid justify-items-center text-sm text-darkblue"><MdEdit className='size-7'/> Redigera veckovy</li>
+					<li 
+						onClick={handleOnclick}
+						className="grid justify-items-center text-sm text-darkblue"><MdEdit className='size-7'/> Redigera veckovy</li>
 					<li className="grid justify-items-center text-sm text-darkblue"><MdPerson className='size-7'/> Admin</li>
 				</ul> 
 				</nav>
