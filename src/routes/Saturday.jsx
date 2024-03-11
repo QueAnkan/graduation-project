@@ -1,8 +1,10 @@
 
+import WeekdayCard from "../components/WeekdayCard";
+
 const Saturday = () => {
 	return(
 		<>
-		<h1>Lördag</h1>
+		<WeekdayCard view = "Lördag"/>
 		</>
 	)
 }
