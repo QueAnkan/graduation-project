@@ -2,20 +2,20 @@ import {useState} from "react"
 import { MdOutlineClose, MdSearch } from "react-icons/md";
 import Button from '../utils/style-generators/buttonGenerator';
 
-const SearchOverlay = ({isOpen, onClose}) => {
+const SearchOverlay = ({isSearchOpen, handleCloseSearch}) => {
+	if(!isSearchOpen) {
+		return null
+	}
+
 	const [selectedOption, setSelectedOption] = useState('true');
 	const [inputSearch, setInputSearch] = useState('');
 
-	const handleClose = () => {
-		setSelectedOption('true')
-		onClose(); 
-	}
 
 	return (
 		<section className="fixed inset-0 flex flex-col justify-start items-center bg-white bg-opacity-200 z-50 max-w-screen-lg lg:mx-auto lg:mt-40 lg:rounded-md">
 			<div className="p-4 bg-white flex flex-col justify-start w-full"> 
 				<div className="flex w-full justify-end">
-					<MdOutlineClose size={40} onClick={handleClose}/>
+					<MdOutlineClose size={40} onClick={handleCloseSearch}/>
 				</div>
 				<div className="p-2 my-2">
 					<h1 className="p-2 font-bold text-3xl mb-2">Sök efter bild</h1>

@@ -5,9 +5,12 @@ import Button from "../utils/style-generators/buttonGenerator";
 import ImageContainer from "./ImageContainer";
 import { moveToFormerDay, moveToNextDay } from "../data/routeToPath";
 import { useVisibilityStatus } from "../utils/VisibleButtonsProvider";
+import { useState } from "react";
+import SearchOverlay from "./SearchOverlay";
 
 const WeekdayCard = (props) => {
 	const {isVisible} = useVisibilityStatus()
+	const [isSearchOpen, setIsSearchOpen] = useState(false)
 
 	const bgColorClassName = getBgColor(props.view)
 
@@ -23,6 +26,14 @@ const WeekdayCard = (props) => {
 	function handleNextDay() {
 		navigate(moveNext[props.view])
 	}
+
+	function openSearchOverlay() {
+		setIsSearchOpen((isSearchOpen) =>!isSearchOpen)
+	}
+
+function handleCloseSearch() {
+	setIsSearchOpen(false)
+}
 
 	return( 	
 	<>
@@ -55,12 +66,15 @@ const WeekdayCard = (props) => {
 				<ImageContainer/>
 			</section>	
 			<span className="mx-auto inline-block my-8 ">
-				{isVisible && <Button>Lägg till bild</Button>}
+				{isVisible && <Button onClick={openSearchOverlay}>Lägg till bild</Button>}
 			</span>
 			<span className="mx-auto inline-block">
 				{isVisible && <Button >Stäng redigeringsvy</Button>}
 			</span>
 		</section>
+		{isSearchOpen && <SearchOverlay
+							isSearchOpen={isSearchOpen}
+							handleCloseSearch={handleCloseSearch} />}
 	</>
 	)
 }

@@ -14,7 +14,6 @@ const Root = () => {
 		<Header/>
 		<main className="mt-[150px] mx-auto max-w-5xl h-screen h-svh relative">
 			<Outlet/>
-			<SearchOverlay/>
 			<Footer/>
 		</main>	
 		<Navigation/>
