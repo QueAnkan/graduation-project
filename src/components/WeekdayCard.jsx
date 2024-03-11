@@ -1,14 +1,30 @@
 import { TfiArrowCircleLeft, TfiArrowCircleRight } from "react-icons/tfi";
+import {useNavigate} from "react-router-dom"
 import getBgColor from "../utils/style-generators/getBackgroundColor";
 import Button from "../utils/style-generators/buttonGenerator";
 import ImageContainer from "./ImageContainer";
-
+import { moveToFormerDay, moveToNextDay } from "../data/routeToPath";
+import { useVisibilityStatus } from "../utils/VisibleButtonsProvider";
 
 const WeekdayCard = (props) => {
+	const {isVisible} = useVisibilityStatus()
 
 	const bgColorClassName = getBgColor(props.view)
 
-	return( 
+	let navigate = useNavigate()
+
+	const  moveNext = moveToNextDay
+
+	const moveBack = moveToFormerDay
+	function handleFormerDay() {
+		navigate(moveBack[props.view])
+	}
+
+	function handleNextDay() {
+		navigate(moveNext[props.view])
+	}
+
+	return( 	
 	<>
 		<article className="mx-auto my-4 w-10/12 text-center lg:my-10" >
 			<h1 className="text-xl font-bold py-4">Planera ditt veckoschema</h1>
@@ -20,9 +36,17 @@ const WeekdayCard = (props) => {
 
 
 		<section className="flex justify-center item-center relative w-10/12 mx-auto my-6 md:mt-10" >
-			<button aria-label="Byt veckodag bakåt" className="  left-[calc(64+30)] top-0 sm:left-12 md:absolute md:left-8 md:top-60"><TfiArrowCircleLeft size={30} /></button>
+			<button 
+				onClick={handleFormerDay} 
+				aria-label="Byt veckodag bakåt" 
+				className="  left-[calc(64+30)] top-0 sm:left-12 md:absolute md:left-8 md:top-60"><TfiArrowCircleLeft size={30} />
+			</button>
 			<h2 className="text-2xl mx-10">{props.view}</h2>
-			<button aria-label="Byt veckodag framåt" className=" right-[calc(64+30)] top-0 sm:right-12 md:absolute md:right-8 md:top-60"><TfiArrowCircleRight size={30} /></button>
+			<button 
+				onClick={handleNextDay} 
+				aria-label="Byt veckodag framåt" 
+				className=" right-[calc(64+30)] top-0 sm:right-12 md:absolute md:right-8 md:top-60"><TfiArrowCircleRight size={30} />
+			</button>
 		</section>
 
 
@@ -31,11 +55,14 @@ const WeekdayCard = (props) => {
 				<ImageContainer/>
 			</section>	
 			<span className="mx-auto inline-block my-8 ">
-				<Button>Lägg till bild</Button>
+				{isVisible && <Button>Lägg till bild</Button>}
 			</span>
-			<span className="mx-auto inline-block"><Button >Stäng redigeringsvy</Button></span>
+			<span className="mx-auto inline-block">
+				{isVisible && <Button >Stäng redigeringsvy</Button>}
+			</span>
 		</section>
-	</>)
+	</>
+	)
 }
 
 export default WeekdayCard
