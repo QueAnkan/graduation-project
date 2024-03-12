@@ -11,6 +11,7 @@ const SearchOverlay = ({isSearchOpen, handleCloseSearch}) => {
 	const [selectedOption, setSelectedOption] = useState('true');
 	const [searchString, setSearchString] = useState('');
 	const [searchResult, setSearchResult] = useState('')
+	const [hasSearched, setHasSearched] =useState(false)
 
 	const handleOnChange = (event) => {
 	
@@ -21,6 +22,7 @@ const SearchOverlay = ({isSearchOpen, handleCloseSearch}) => {
 		try{
 			const search = await getSearchImages(searchString)
 			setSearchResult(search)
+			setHasSearched(true);
 
 		}catch (error) {
 			console.error("Error getting search result:", error)
@@ -90,10 +92,9 @@ const SearchOverlay = ({isSearchOpen, handleCloseSearch}) => {
 						</label>
 					<div className="text-center p-3">
 						<Button onClick={handleSearch}>Sök</Button>
-						<p className="mt-4 ">Klicka på den bilden du vill lägga till</p>
+						<p className="mt-4 ">{hasSearched ?"Klicka på den bilden du vill lägga till": ""}</p>
 					</div>
 					<div className="mt-5">
-						<p>här kommer bilderna ut.</p>
 						<ul> 
 							{searchResult.length > 0 ? (
 								searchResult.map((image) => (
@@ -103,7 +104,7 @@ const SearchOverlay = ({isSearchOpen, handleCloseSearch}) => {
 								</li>
 								))
 							) : (
-								"Inga resultat matchade sökningen" 
+								hasSearched ? "Inga resultat matchade sökningen" : " "
 							)}
 						</ul>
 					</div>
@@ -115,3 +116,6 @@ const SearchOverlay = ({isSearchOpen, handleCloseSearch}) => {
 }
 
 export default SearchOverlay
+
+
+/* Glöm inte att låsa knappen innan man sökt!!! */
