@@ -3,7 +3,7 @@
 const getSearchImages = async () => {
 	try{
 		const response = await fetch(
-			"https://gr0w2y8mmi.execute-api.eu-north-1.amazonaws.com/xteam/images/search?$`{searchString}`"
+			`https://gr0w2y8mmi.execute-api.eu-north-1.amazonaws.com/xteam/images/search?${searchString}`
 		)
 
 		if (!response.ok) {
