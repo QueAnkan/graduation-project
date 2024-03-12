@@ -33,6 +33,8 @@ export const handler = async (event) => {
 
 			const imageId = title + color
 
+			
+
 			console.log("imageId:", imageId);			
 
 			const newItem = {
