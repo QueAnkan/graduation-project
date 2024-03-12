@@ -16,44 +16,34 @@ export  const handler = async (event) => {
         const lowerCaseSearchString = searchString ? searchString.toLowerCase() : '';
         console.log("lowerCaseSearchString:", lowerCaseSearchString);
 
-       /*  const params = {
-            TableName: tableName,
-            IndexName: 'TitleIndex', 
-            KeyConditionExpression: 'contains(lowercase(#title),  :searchString)',
-            ExpressionAttributeNames: {
-                '#title': 'title',
-            },
-            ExpressionAttributeValues: {
-                ':searchString': lowerCaseSearchString,
-            },
-        };
-        console.log("params:", params); */
-        
-    /* const command = new QueryCommand(params) */
+    
     const data = await dynamo.send(new QueryCommand({
         TableName: tableName,
-        IndexName: 'TitleIndex', 
-        KeyConditionExpression: 'begins_with(#title, :searchString)',
+        KeyConditionExpression: '#PK = :PK AND begins_with(#imageId, :searchString)',
         ExpressionAttributeNames: {
-            '#title': 'title',
+            '#PK': 'PK',
+            '#imageId': 'imageId',
         },
         ExpressionAttributeValues: {
+            ':PK': 'images',
             ':searchString': lowerCaseSearchString,
         },
     })
     )
-    console.log(data.Items)
-       /*  const data = await dynamo.query(params).promise(); */
+    console.log(data)
+   
         return {
             statusCode: 200,
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(data.Items),
         };
     } catch (error) {
+        console.log("Error:", error);
         return {
             statusCode: 500,
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({ message: 'Internal server error' }),
+            
         };
     }
 }
