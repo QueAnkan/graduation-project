@@ -1,6 +1,7 @@
 import {useState} from "react"
 import { MdOutlineClose, MdSearch } from "react-icons/md";
 import Button from '../utils/style-generators/buttonGenerator';
+import getSearchImages from "../utils/api-functions/getSearchImages";
 
 const SearchOverlay = ({isSearchOpen, handleCloseSearch}) => {
 	if(!isSearchOpen) {
@@ -8,8 +9,25 @@ const SearchOverlay = ({isSearchOpen, handleCloseSearch}) => {
 	}
 
 	const [selectedOption, setSelectedOption] = useState('true');
-	const [inputSearch, setInputSearch] = useState('');
+	const [searchString, setSearchString] = useState('');
+	const [searchResult, setSearchResult] = useState('')
 
+	const handleOnChange = (event) => {
+	
+		setSearchString(event.target.value)
+	}
+
+	const handleSearch = async () => {
+		try{
+			const search = await getSearchImages(searchString)
+			setSearchResult(search)
+
+		}catch (error) {
+			console.error("Error getting search result:", error)
+		}
+		
+		
+	}	
 
 	return (
 		<section className="fixed inset-0 flex flex-col justify-start items-center bg-white bg-opacity-200 z-50 max-w-screen-lg lg:mx-auto lg:mt-40 lg:rounded-md">
@@ -54,7 +72,7 @@ const SearchOverlay = ({isSearchOpen, handleCloseSearch}) => {
 									Färg
 							</label>
 					</div>
-						<label>
+						<label  htmlFor="search">
 							<span className="font-bold text-1xl">Sök</span>
 							<div className="flex items-center border border-darkgray rounded-md px-2 py-2 "> 
 								<div className="h-8 w-8">
@@ -62,17 +80,32 @@ const SearchOverlay = ({isSearchOpen, handleCloseSearch}) => {
 								</div>
 								<input
 									placeholder="ex. frukost"
+									id="search"
 									type="text" 
+									value = {searchString}
+									onChange={handleOnChange}
 									className="w-full h-9 text-lg"
 									/>
 							</div>
 						</label>
 					<div className="text-center p-3">
-						<Button>Sök</Button>
+						<Button onClick={handleSearch}>Sök</Button>
 						<p className="mt-4 ">Klicka på den bilden du vill lägga till</p>
 					</div>
 					<div className="mt-5">
-						<p>här kommer bilden ut.</p>
+						<p>här kommer bilderna ut.</p>
+						<ul> 
+							{searchResult.length > 0 ? (
+								searchResult.map((image) => (
+								<li key={image.imageId}> 
+									<h3>{image.title}</h3>
+									<img src={image.image} alt={image.alt} />
+								</li>
+								))
+							) : (
+								"Inga resultat matchade sökningen" 
+							)}
+						</ul>
 					</div>
 				</div>
 				

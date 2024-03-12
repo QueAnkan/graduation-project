@@ -1,9 +1,9 @@
 
 
-const getSearchImages = async () => {
+const getSearchImages = async (searchString) => {
 	try{
 		const response = await fetch(
-			`https://gr0w2y8mmi.execute-api.eu-north-1.amazonaws.com/xteam/images/search?${searchString}`
+			`https://gr0w2y8mmi.execute-api.eu-north-1.amazonaws.com/xteam/images/search?searchString=${searchString}`
 		)
 
 		if (!response.ok) {
@@ -16,3 +16,5 @@ const getSearchImages = async () => {
 		console.error("Error fetching data:", error.message)
 	}
 }
+
+export default getSearchImages
