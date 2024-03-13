@@ -13,6 +13,8 @@ const SearchOverlay = ({isSearchOpen, handleCloseSearch}) => {
 	const [searchResult, setSearchResult] = useState('')
 	const [hasSearched, setHasSearched] =useState(false)
 
+console.log("searchResult 1:", searchResult);
+
 	const handleOnChange = (event) => {
 	
 		setSearchString(event.target.value)
@@ -28,8 +30,10 @@ const SearchOverlay = ({isSearchOpen, handleCloseSearch}) => {
 			console.error("Error getting search result:", error)
 		}
 		
-		
+		console.log("searchResult 2:", searchResult);
 	}	
+	
+
 
 	return (
 		<section className="fixed inset-0 flex flex-col justify-start items-center bg-white bg-opacity-200 z-50 max-w-screen-lg lg:mx-auto lg:mt-40 lg:rounded-md">
@@ -95,7 +99,7 @@ const SearchOverlay = ({isSearchOpen, handleCloseSearch}) => {
 						<p className="mt-4 ">{hasSearched ?"Klicka på den bilden du vill lägga till": ""}</p>
 					</div>
 					<div className="mt-5">
-						<ul> 
+					{/* 	<ul> 
 							{searchResult.length > 0 ? (
 								searchResult.map((image) => (
 								<li key={image.imageId}> 
@@ -106,7 +110,7 @@ const SearchOverlay = ({isSearchOpen, handleCloseSearch}) => {
 							) : (
 								hasSearched ? "Inga resultat matchade sökningen" : " "
 							)}
-						</ul>
+						</ul> */}
 					</div>
 				</div>
 				
