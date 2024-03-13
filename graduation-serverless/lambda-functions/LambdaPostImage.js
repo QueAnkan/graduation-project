@@ -1,9 +1,12 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb"
+import { S3Client, PutObjectCommand} from "@aws-sdk/client-s3"
 import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb"
 
 
 const client = new DynamoDBClient({})
 const dynamo = DynamoDBDocumentClient.from(client)
+
+const s3Client = new S3Client({})
 
 export const handler = async (event) => {
 	const tableName = "ImageTable"
@@ -31,26 +34,35 @@ export const handler = async (event) => {
 			throw new Error ("Invalid request body, title or color is an emty string")
 		}
 
-			const imageId = title + color
+		const imageId = title + color
 
+		console.log("imageId:", imageId);			
+
+		// upload image to s3
+		const uploadParams = {
+			Bucket: "xteam-images-bucket",
+			Key: `images/${imageId}.jpg`,
+			Body: Buffer.from(requestBody.items[0].image, "base64"), // Assuming image data is in base64 format
+			ContentType: "image/jpeg", 
+		};
+		await s3Client.send(new PutObjectCommand(uploadParams));
+
+
+		const newItem = {
+			PK: "images",
+			imageId: imageId,
+			alt: requestBody.items[0].alt,
+			color: requestBody.items[0].color,
+			/* image: requestBody.items[0].image, */
+			image: `images/${imageId}.jpg`, // Save S3 key in DynamoDB
+			title: requestBody.items[0].title,
+			user: requestBody.items[0].user,
 			
-
-			console.log("imageId:", imageId);			
-
-			const newItem = {
-				PK: "images",
-				imageId: imageId,
-				alt: requestBody.items[0].alt,
-				color: requestBody.items[0].color,
-				image: requestBody.items[0].image,
-				title: requestBody.items[0].title,
-				user: requestBody.items[0].user
-			}
+		}
 
 		console.log("newItem:", newItem);
-			
 		
-
+		
 		await dynamo.send(
 			new PutCommand({
 				TableName: tableName,

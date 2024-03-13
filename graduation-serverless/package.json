@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.529.1",
     "graceful-fs": "^4.2.11"
   }
 }

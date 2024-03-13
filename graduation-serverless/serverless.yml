@@ -82,3 +82,8 @@ resources:
                 KeyType: HASH
             Projection: 
               ProjectionType: ALL
+
+    ImageBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: xteam-images-bucket        
