@@ -10,8 +10,11 @@ const SearchOverlay = ({isSearchOpen, handleCloseSearch}) => {
 
 	const [selectedOption, setSelectedOption] = useState('true');
 	const [searchString, setSearchString] = useState('');
-	const [searchResult, setSearchResult] = useState('')
+	const [searchResult, setSearchResult] = useState([])
 	const [hasSearched, setHasSearched] =useState(false)
+	
+	const matchingImages = searchResult ? [...searchResult] : []
+
 
 console.log("searchResult 1:", searchResult);
 
@@ -99,9 +102,9 @@ console.log("searchResult 1:", searchResult);
 						<p className="mt-4 ">{hasSearched ?"Klicka på den bilden du vill lägga till": ""}</p>
 					</div>
 					<div className="mt-5">
-					{/* 	<ul> 
-							{searchResult.length > 0 ? (
-								searchResult.map((image) => (
+					 	<ul> 
+							{matchingImages.length > 0 ? (
+								matchingImages.map((image) => (
 								<li key={image.imageId}> 
 									<h3>{image.title}</h3>
 									<img src={image.image} alt={image.alt} />
@@ -110,7 +113,7 @@ console.log("searchResult 1:", searchResult);
 							) : (
 								hasSearched ? "Inga resultat matchade sökningen" : " "
 							)}
-						</ul> */}
+						</ul> 
 					</div>
 				</div>
 				
