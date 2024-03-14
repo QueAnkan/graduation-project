@@ -107,7 +107,7 @@ console.log("searchResult 1:", searchResult);
 								matchingImages.map((image) => (
 								<li key={image.imageId}> 
 									<h3>{image.title}</h3>
-									<img src={image.image} alt={image.alt} />
+									<img src={image.imageUrl} alt={image.alt} />
 								</li>
 								))
 							) : (

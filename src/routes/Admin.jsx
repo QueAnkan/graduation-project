@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Button from '../utils/style-generators/buttonGenerator'
 import { putNewImage } from "../utils/api-functions/putNewImage";
-import {deleteImage} from '../utils/api-functions/deleteImage'
+// import {deleteImage} from '../utils/api-functions/deleteImage'
 
 const Admin = () => {
 	const [alt, setAlt] = useState('')
@@ -117,7 +117,7 @@ const Admin = () => {
 					type="text"
 				/>
 			</label>
-			<Button onClick={handleSearch}>Sök</Button>
+			{/* <Button onClick={handleSearch}>Sök</Button> */}
 			<div className="m-2">
 					<p>Sökresultat</p>
 			</div>
@@ -129,3 +129,20 @@ const Admin = () => {
 export default Admin
 
 {/* <img src={`data:image/svg+xml;base64,${image}`} alt={alt} /> */}
+
+
+/* <input
+type="file"
+accept="image/jpeg"
+onChange={(event) => {
+	const file = event.target.files[0]; 
+	if(file) {
+		const reader = new FileReader(); 
+		reader.onload = () => {
+			const buffer = reader.result;
+			setImage(buffer)
+		}
+		reader.readAsArrayBuffer(file); // Läs filen som en array buffer
+	}
+}
+/> */
