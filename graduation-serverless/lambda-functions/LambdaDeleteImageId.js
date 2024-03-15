@@ -1,9 +1,11 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb"
+import { DeleteObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { DynamoDBDocumentClient, GetCommand, DeleteCommand } from "@aws-sdk/lib-dynamodb";
 
 
 const client = new DynamoDBClient({}); 
 const dynamo = DynamoDBDocumentClient.from(client); 
+const s3Client = new S3Client({})
 
 const tableName = "ImageTable";
 
@@ -35,6 +37,15 @@ export const handler = async (event) => {
 		body = JSON.stringify({ message: "Image not found" }); 		 
 	} else {
 		console.log("Image exists, proceeding with deletion")
+
+		const s3Key = getItemResponse.Item.image;
+		await s3Client.send(
+			new DeleteObjectCommand({
+				Bucket: "xteam-images-bucket",
+				Key: s3Key,
+			})
+		);
+
 
 		await dynamo.send(
 			new DeleteCommand({

@@ -4,7 +4,7 @@ export async function deleteImage(imageId) {
 	
 	try {
 			const response = await fetch(
-			'https://gr0w2y8mmi.execute-api.eu-north-1.amazonaws.com/xteam/images/{imageId}',
+			`https://gr0w2y8mmi.execute-api.eu-north-1.amazonaws.com/xteam/images/${imageId}`,
 		{
 			method: "DELETE", 
 			headers: {
