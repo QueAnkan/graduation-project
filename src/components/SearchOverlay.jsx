@@ -101,14 +101,15 @@ console.log("searchResult 1:", searchResult);
 						<Button onClick={handleSearch}>Sök</Button>
 						<p className="mt-4 ">{hasSearched ?"Klicka på den bilden du vill lägga till": ""}</p>
 					</div>
-					<div className="mt-5">
-					 	<ul> 
+					<div>
+					 	<ul className="max-w-xl p-4 sm:flex flex-cols"> 
 							{matchingImages.length > 0 ? (
 								matchingImages.map((image) => (
-								<li key={image.imageId}> 
-									<h3>{image.title}</h3>
+								<li key={image.imageId} className="max-w-60 bg-lightwhite m-3 rounded-md"> 
 									<img src={image.imageUrl} alt={image.alt} />
+									<h3 className="text-center font-bold bg-white">{image.title}</h3>
 								</li>
+
 								))
 							) : (
 								hasSearched ? "Inga resultat matchade sökningen" : " "
