@@ -3,7 +3,7 @@ import { HiOutlineSquare2Stack } from "react-icons/hi2";
 import Button from "../utils/style-generators/buttonGenerator";
 import { useVisibilityStatus } from "../utils/VisibleButtonsProvider";
 
-const ImageContainer = () => {
+const ImageContainer = ({ image }) => {
 	const {isVisible} = useVisibilityStatus()
 
 	return(
@@ -16,7 +16,8 @@ const ImageContainer = () => {
 							<p > <RiDeleteBin6Line size={30} /> </p>
 						</Button>}
 					</span>
-					<img src="" alt="" />
+					{image &&
+						<img src={image.imageUrl} alt={image.alt}/>}
 				</div>
 				<span className="self-end">
 					<Button style="transparent" ><p>Detaljerad vy</p>
