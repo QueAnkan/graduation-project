@@ -11,7 +11,7 @@ import SearchOverlay from "./SearchOverlay";
 const WeekdayCard = (props) => {
 	const {isVisible} = useVisibilityStatus()
 	const [isSearchOpen, setIsSearchOpen] = useState(false)
-	const [selectedImages, setSeletedImages] = useState(null)
+	const [selectedImages, setSeletedImages] = useState([])
 
 	const bgColorClassName = getBgColor(props.view)
 
@@ -37,7 +37,7 @@ const WeekdayCard = (props) => {
 	}
 
 	const handleImageSelected = (selectedImage) => {
-		setSeletedImages([...selectedImages, selectedImage]);
+		setSeletedImages([ ...selectedImages,selectedImage]);
 	}
 
 	return( 	
@@ -68,11 +68,7 @@ const WeekdayCard = (props) => {
 
 		<section className={`${bgColorClassName} flex flex-col rounded-md w-10/12 mx-auto my-4 px-4 py-10 md:w-fit md:px-16`} >
 			<section className="flex flex-col items-center w-fit mx-auto">	
-				{selectedImages === null ? (
-				<ImageContainer image={selectedImages}/>
-			):(
-				<ImageContainer image={selectedImages} />
-			)}
+			<ImageContainer image={selectedImages} />
 			</section>	
 			<span className="mx-auto inline-block my-8 ">
 				{isVisible && <Button onClick={openSearchOverlay}>Lägg till bild</Button>}
