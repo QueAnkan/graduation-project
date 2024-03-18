@@ -4,28 +4,26 @@ import adultChild from '../assets/adultandchild.jpg'
 const LandingPage = () => {
 
 	return (
-		<section className='flex flex-col'>
-				<div className='mt-2 mx-1 p-2 md:grid-rows-2'>
-					<div className='flex'>
+		<section className='flex flex-col min-h-screen sm:justify-start lg:justify-center'>
+				<div className='m-2 sm:grid sm:grid-cols-2 gap-10 items-center sm:mt-12'>
 						<img 
 							src={fiveKids} 
 							alt="Five children of different nationalities are sitting on a bench"
-							className='rounded-full max-w-full h-auto sm:w-3/4 md:w-1/2 lg:w-1/3'
+							className='rounded-full w-full h-auto max-w-md mx-auto sm:w-full md:w-3/4 lg:w-full'
 							/>
-					</div>
-					<article className='max-w-sm'>
-					<h1> Välkommen till Bildstöd i vardagen, där varje dag blir enklare att förstå!</h1>
+					<article className='m-2 max-w-md flex-col items-center '>
+					<h1> Välkommen till Bildstöd i vardagen, varje dag är unik! </h1>
 					<h2 className='font-bold mt-2'>Med Bildstöd i vardagen kan du:</h2>
 					<p>Använd bilder för att illustrera dagens aktiviteter för en tydlig struktur. Du kan klicka på en bild för att visa fler bilder som bryter ner aktiviteten i lättförstådda steg. Perfekt för att förbereda och minska oro. </p>
 					</article>
 				</div>
-				<div className='mt-2 mx-1 p-2'>
+				<div className='m-2 grid sm:grid-cols-2 gap-1 items-center sm:mt-10'>
 					<img 
 						src={adultChild}
 						alt="Female adult and a child sitting together and look at a mobilephone"
-						className='rounded-md sm:w-3/4 md:w-1/2 lg:w-1/3'/>
-					<article className='max-w-sm'>
-						<p>Börja skapa veckoschema med bilder redan nu och få vardagen att bli enklare.Låt barnen vara med och utforska sitt schema. Att göra dem delaktiga hjälper dem att känna sig mer förberedda och trygga.  </p>
+						className='rounded-md w-full h-auto max-w-md mx-auto sm:order-last sm:max-w-full md:w-3/4 lg:w-full'/>
+					<article className='max-w-md sm:order-first md:flex justify-center items-center md:items-center mx-auto'>
+						<p className='p-2'>Börja skapa veckoschema med bilder redan nu och få vardagen att bli enklare.Låt barnen vara med och utforska sitt schema. Att göra dem delaktiga hjälper dem att känna sig mer förberedda och trygga.  </p> 
 					</article>
 				</div>
 		</section>
@@ -35,4 +33,3 @@ const LandingPage = () => {
 
 export default LandingPage
 
-/**/
