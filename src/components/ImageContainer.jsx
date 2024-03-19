@@ -9,6 +9,7 @@ const ImageContainer = ({ images, handleImageDelete }) => {
 	const handleDelete = (index) => {
 		handleImageDelete(index)
 	}
+	
 
 	return (
 		<>
