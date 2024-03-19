@@ -3,7 +3,7 @@ import { MdOutlineClose, MdSearch } from "react-icons/md";
 import Button from '../utils/style-generators/buttonGenerator';
 import getSearchImages from "../utils/api-functions/getSearchImages";
 
-const SearchOverlay = ({isSearchOpen, handleCloseSearch, handleImageSelected}) => {
+const SearchOverlay = ({isSearchOpen, handleCloseSearch, handleImageSelected, view}) => {
 	if(!isSearchOpen) {
 		return null
 	}
@@ -36,8 +36,8 @@ console.log("searchResult 1:", searchResult);
 		console.log("searchResult 2:", searchResult);
 	}	
 
-	const handleImageClick = (selectedImage) => {
-		handleImageSelected(selectedImage)
+	const handleImageClick = (image) => {
+		handleImageSelected(image)
 	}
 	
 

@@ -5,13 +5,23 @@ import Button from "../utils/style-generators/buttonGenerator";
 import ImageContainer from "./ImageContainer";
 import { moveToFormerDay, moveToNextDay } from "../data/routeToPath";
 import { useVisibilityStatus } from "../utils/VisibleButtonsProvider";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchOverlay from "./SearchOverlay";
+
+
+const saveImagesToLocalStorage = (key, images) => {
+		localStorage.setItem(key, JSON.stringify(images));
+};
+	
+const getImagesFromLocalStorage = (key) => {
+    const images = localStorage.getItem(key);
+    return images ? JSON.parse(images) : [];
+};
 
 const WeekdayCard = (props) => {
 	const {isVisible} = useVisibilityStatus()
 	const [isSearchOpen, setIsSearchOpen] = useState(false)
-	const [selectedImages, setSeletedImages] = useState([])
+	const [selectedImages, setSeletedImages] = useState(getImagesFromLocalStorage(props.view))
 
 	const bgColorClassName = getBgColor(props.view)
 
@@ -21,10 +31,12 @@ const WeekdayCard = (props) => {
 
 	const moveBack = moveToFormerDay
 	function handleFormerDay() {
+		setSeletedImages([]);
 		navigate(moveBack[props.view])
 	}
 
 	function handleNextDay() {
+		setSeletedImages([]);
 		navigate(moveNext[props.view])
 	}
 
@@ -39,6 +51,11 @@ const WeekdayCard = (props) => {
 	const handleImageSelected = (selectedImage) => {
 		setSeletedImages([ ...selectedImages,selectedImage]);
 	}
+
+	useEffect(() => {
+		saveImagesToLocalStorage(props.view, selectedImages);
+	  }, [selectedImages, props.view]);
+	
 
 	return( 	
 	<>
@@ -68,7 +85,7 @@ const WeekdayCard = (props) => {
 
 		<section className={`${bgColorClassName} flex flex-col rounded-md w-10/12 mx-auto my-4 px-4 py-10 md:w-fit md:px-16`} >
 			<section className="flex flex-col items-center w-fit mx-auto">	
-			<ImageContainer image={selectedImages} />
+			<ImageContainer images={selectedImages} />
 			</section>	
 			<span className="mx-auto inline-block my-8 ">
 				{isVisible && <Button onClick={openSearchOverlay}>Lägg till bild</Button>}
