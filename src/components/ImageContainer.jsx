@@ -3,8 +3,12 @@ import { HiOutlineSquare2Stack } from "react-icons/hi2";
 import Button from "../utils/style-generators/buttonGenerator";
 import { useVisibilityStatus } from "../utils/VisibleButtonsProvider";
 
-const ImageContainer = ({ images }) => {
+const ImageContainer = ({ images, handleImageDelete }) => {
 	const {isVisible} = useVisibilityStatus()
+
+	const handleDelete = (index) => {
+		handleImageDelete(index)
+	}
 
 	return (
 		<>
@@ -13,7 +17,7 @@ const ImageContainer = ({ images }) => {
 				<div key={index} className="relative m-2">
 					<span className="absolute right-0">
 						{isVisible && (
-							<Button style="transparent">
+							<Button style="transparent" onClick={() => handleDelete(index)}>
 								<p>Ta bort bild</p>
 								<p>
 									<RiDeleteBin6Line size={30} />

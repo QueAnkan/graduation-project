@@ -55,6 +55,12 @@ const WeekdayCard = (props) => {
 	useEffect(() => {
 		saveImagesToLocalStorage(props.view, selectedImages);
 	  }, [selectedImages, props.view]);
+
+	const handleImageDelete = (indexDelete) => {
+		const updatedImages = selectedImages.filter((_, index) => index !== indexDelete);
+		setSeletedImages(updatedImages);
+		saveImagesToLocalStorage(props.view, updatedImages)
+	}
 	
 
 	return( 	
@@ -85,7 +91,7 @@ const WeekdayCard = (props) => {
 
 		<section className={`${bgColorClassName} flex flex-col rounded-md w-10/12 mx-auto my-4 px-4 py-10 md:w-fit md:px-16`} >
 			<section className="flex flex-col items-center w-fit mx-auto">	
-			<ImageContainer images={selectedImages} />
+			<ImageContainer images={selectedImages} handleImageDelete={handleImageDelete}/>
 			</section>	
 			<span className="mx-auto inline-block my-8 ">
 				{isVisible && <Button onClick={openSearchOverlay}>Lägg till bild</Button>}
