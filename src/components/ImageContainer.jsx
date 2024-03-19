@@ -12,9 +12,9 @@ const ImageContainer = ({ images, handleImageDelete }) => {
 
 	return (
 		<>
-		<div className="grid bg-lightgray rounded-sm min-w-[230px] max-w-[230px] min-h-[230px] relative sm:min-w-72 sm:max-w-72 sm:min-h-72 md:min-w-80 md:max-w72 md:min-h-80">
+		<div className="grid border border-darkblue gap-4 rounded-sm min-w-[230px] max-w-[230px] min-h-[230px] relative sm:min-w-72 sm:max-w-72 sm:min-h-72 md:min-w-80 md:max-w72 md:min-h-80">
 			{images.map((image, index) => (
-				<div key={index} className="relative m-2">
+				<div key={index} className="relative">
 					<span className="absolute right-0">
 						{isVisible && (
 							<Button style="transparent" onClick={() => handleDelete(index)}>
