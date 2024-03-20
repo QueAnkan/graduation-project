@@ -6,13 +6,15 @@ import { useVisibilityStatus } from "../utils/VisibleButtonsProvider";
 const ImageContainer = ({ images, handleImageDelete }) => {
 	const {isVisible} = useVisibilityStatus()
 
+// const  borderClass = 
+
 	const handleDelete = (index) => {
 		handleImageDelete(index)
 	}
 
 	return (
 		<>
-		<div className="grid border border-darkblue gap-4 rounded-sm min-w-[230px] max-w-[230px] min-h-[230px] relative sm:min-w-72 sm:max-w-72 sm:min-h-72 md:min-w-80 md:max-w72 md:min-h-80">
+		<div className="grid gap-4  min-w-[230px] max-w-[230px] min-h-[230px] relative sm:min-w-72 sm:max-w-72 sm:min-h-72 md:min-w-80 md:max-w72 md:min-h-80">
 			{images.map((image, index) => (
 				<div key={index} className="relative">
 					<span className="absolute right-0">
@@ -25,7 +27,10 @@ const ImageContainer = ({ images, handleImageDelete }) => {
 							</Button>
 						)}
 					</span>
-					<img src={image.imageUrl} alt={image.alt} />
+					<div className="border border-darkblue rounded-sm bg-white text-center">
+					<img  src={image.imageUrl} alt={image.alt} />
+					<p className="text-xl font-bold">{image.title}</p>
+					</div>
 				</div>
 			))}
 		</div>
