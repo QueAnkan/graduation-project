@@ -1,6 +1,6 @@
 
 import WeekdayCard from "../components/WeekdayCard";
-import VisibleButtonsProvider from "../utils/VisibleButtonsProvider";
+import VisibleElementProvider from "../utils/VisibleElementProvider";
 
 const Monday = () => {
 	return(

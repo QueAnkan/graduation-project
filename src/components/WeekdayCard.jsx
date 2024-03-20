@@ -4,7 +4,7 @@ import getBgColor from "../utils/style-generators/getBackgroundColor";
 import Button from "../utils/style-generators/buttonGenerator";
 import ImageContainer from "./ImageContainer";
 import { moveToFormerDay, moveToNextDay } from "../data/routeToPath";
-import { useVisibilityStatus } from "../utils/VisibleButtonsProvider";
+import { useVisibilityStatus } from "../utils/VisibleElementProvider";
 import { useEffect, useState } from "react";
 import SearchOverlay from "./SearchOverlay";
 import DetailView from "./Detailview";
@@ -29,7 +29,7 @@ const WeekdayCard = (props) => {
 
 	let navigate = useNavigate()
 
-	const  moveNext = moveToNextDay
+	const moveNext = moveToNextDay
 
 	const moveBack = moveToFormerDay
 	function handleFormerDay() {
@@ -121,7 +121,10 @@ export default WeekdayCard
 /* TODO: 
 	-kolla var title ska vara till bilden! ska den ligga på eller under bilden??
 
-	-Mappa ut ImageContainer 
+	- när man klickar på detaljerad vy, visas dold array? med bilder under den bild man klickat på och den ursprungliga bilden blir mindre längst upp
+	-
+	- dölj resten av bilderna i ursprungsvyn? 
+	- 
 */
 
 
