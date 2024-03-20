@@ -23,8 +23,6 @@ const WeekdayCard = (props) => {
 	const {isVisible} = useVisibilityStatus()
 	const [isSearchOpen, setIsSearchOpen] = useState(false)
 	const [selectedImages, setSeletedImages] = useState(getImagesFromLocalStorage(props.view))
-	const [isDetailViewOpen, setIsDetailViewOpen] = useState(false); 
-
 	const bgColorClassName = getBgColor(props.view)
 
 	let navigate = useNavigate()
@@ -64,9 +62,7 @@ const WeekdayCard = (props) => {
 		saveImagesToLocalStorage(props.view, updatedImages)
 	}
 
-	const handleDetailView = () => {
-		setIsDetailViewOpen(!isDetailViewOpen)
-	}
+
 	
 
 	return( 	
@@ -97,7 +93,7 @@ const WeekdayCard = (props) => {
 
 		<section className={`${bgColorClassName} flex flex-col rounded-md w-10/12 mx-auto my-4 px-4 py-10 md:w-fit md:px-16`} >
 			<section className="flex flex-col items-center w-fit mx-auto">	
-			<ImageContainer images={selectedImages} handleImageDelete={handleImageDelete} handleDetailView={handleDetailView}/>
+			<ImageContainer images={selectedImages} handleImageDelete={handleImageDelete}/>
 			</section>	
 			<span className="mx-auto inline-block my-8 ">
 				{isVisible && <Button onClick={openSearchOverlay}>Lägg till bild</Button>}
@@ -111,7 +107,6 @@ const WeekdayCard = (props) => {
 							handleCloseSearch={handleCloseSearch}
 							handleImageSelected={handleImageSelected}
 						/>)}
-						{isDetailViewOpen && <DetailView />}
 	</>
 	)
 }
