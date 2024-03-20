@@ -7,6 +7,7 @@ import { moveToFormerDay, moveToNextDay } from "../data/routeToPath";
 import { useVisibilityStatus } from "../utils/VisibleButtonsProvider";
 import { useEffect, useState } from "react";
 import SearchOverlay from "./SearchOverlay";
+import DetailView from "./Detailview";
 
 
 const saveImagesToLocalStorage = (key, images) => {
@@ -22,6 +23,7 @@ const WeekdayCard = (props) => {
 	const {isVisible} = useVisibilityStatus()
 	const [isSearchOpen, setIsSearchOpen] = useState(false)
 	const [selectedImages, setSeletedImages] = useState(getImagesFromLocalStorage(props.view))
+	const [isDetailViewOpen, setIsDetailViewOpen] = useState(false); 
 
 	const bgColorClassName = getBgColor(props.view)
 
@@ -61,6 +63,10 @@ const WeekdayCard = (props) => {
 		setSeletedImages(updatedImages);
 		saveImagesToLocalStorage(props.view, updatedImages)
 	}
+
+	const handleDetailView = () => {
+		setIsDetailViewOpen(!isDetailViewOpen)
+	}
 	
 
 	return( 	
@@ -91,7 +97,7 @@ const WeekdayCard = (props) => {
 
 		<section className={`${bgColorClassName} flex flex-col rounded-md w-10/12 mx-auto my-4 px-4 py-10 md:w-fit md:px-16`} >
 			<section className="flex flex-col items-center w-fit mx-auto">	
-			<ImageContainer images={selectedImages} handleImageDelete={handleImageDelete}/>
+			<ImageContainer images={selectedImages} handleImageDelete={handleImageDelete} handleDetailView={handleDetailView}/>
 			</section>	
 			<span className="mx-auto inline-block my-8 ">
 				{isVisible && <Button onClick={openSearchOverlay}>Lägg till bild</Button>}
@@ -100,10 +106,12 @@ const WeekdayCard = (props) => {
 				{isVisible && <Button >Stäng redigeringsvy</Button>}
 			</span>
 		</section>
-		{isSearchOpen && <SearchOverlay
+		{isSearchOpen && (<SearchOverlay
 							isSearchOpen={isSearchOpen}
 							handleCloseSearch={handleCloseSearch}
-							handleImageSelected={handleImageSelected}/>}
+							handleImageSelected={handleImageSelected}
+						/>)}
+						{isDetailViewOpen && <DetailView />}
 	</>
 	)
 }
