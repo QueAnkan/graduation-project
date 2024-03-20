@@ -27,6 +27,8 @@ const WeekdayCard = (props) => {
 
 	let navigate = useNavigate()
 
+	const {toggleIsVisible} = useVisibilityStatus()
+
 	const moveNext = moveToNextDay
 
 	const moveBack = moveToFormerDay
@@ -61,6 +63,11 @@ const WeekdayCard = (props) => {
 		setSeletedImages(updatedImages);
 		saveImagesToLocalStorage(props.view, updatedImages)
 	}
+
+	const handleOnclick = () => {
+		toggleIsVisible()
+		console.log('click');
+	}
 	
 
 	return( 	
@@ -91,14 +98,19 @@ const WeekdayCard = (props) => {
 
 		<section className={`${bgColorClassName} flex flex-col rounded-md w-10/12 mx-auto my-4 px-4 py-10 md:w-fit md:px-16`} >
 			<section className="flex flex-col items-center w-fit mx-auto">	
-			<ImageContainer images={selectedImages} handleImageDelete={handleImageDelete}/>
+				<ImageContainer 
+					images={selectedImages} 	
+					handleImageDelete={handleImageDelete}/>
 			</section>	
-			<span className="mx-auto inline-block my-8 ">
+			
+			<span className="mx-auto inline-block mt-20 mb-8 ">
 				{isVisible && <Button onClick={openSearchOverlay}>Lägg till bild</Button>}
 			</span>
+			
 			<span className="mx-auto inline-block">
-				{isVisible && <Button >Stäng redigeringsvy</Button>}
+				{isVisible && <Button onClick={handleOnclick} >Avsluta redigering</Button>}
 			</span>
+			
 		</section>
 		{isSearchOpen && <SearchOverlay
 							isSearchOpen={isSearchOpen}
