@@ -4,7 +4,7 @@ import getBgColor from "../utils/style-generators/getBackgroundColor";
 import Button from "../utils/style-generators/buttonGenerator";
 import ImageContainer from "./ImageContainer";
 import { moveToFormerDay, moveToNextDay } from "../data/routeToPath";
-import { useVisibilityStatus } from "../utils/VisibleButtonsProvider";
+import { useVisibilityStatus } from "../utils/VisibleElementProvider";
 import { useEffect, useState } from "react";
 import SearchOverlay from "./SearchOverlay";
 

@@ -1,5 +1,5 @@
 import {MdHomeFilled, MdCalendarToday, MdEdit, MdPerson} from 'react-icons/md'
-import { useVisibilityStatus } from '../utils/VisibleButtonsProvider'
+import { useVisibilityStatus } from '../utils/VisibleElementProvider'
 import { NavLink } from 'react-router-dom'
 
 const Navigation = () => {

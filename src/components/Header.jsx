@@ -1,6 +1,6 @@
 import {MdHomeFilled, MdCalendarToday, MdEdit, MdPerson, MdFacebook} from 'react-icons/md'
 import { FaInstagram } from "react-icons/fa";
-import { useVisibilityStatus } from '../utils/VisibleButtonsProvider'
+import { useVisibilityStatus } from '../utils/VisibleElementProvider'
 
 import { NavLink } from 'react-router-dom';
 
