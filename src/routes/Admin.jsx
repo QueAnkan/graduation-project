@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
+import { MdSearch } from "react-icons/md";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import Button from '../utils/style-generators/buttonGenerator'
 import { putNewImage } from "../utils/api-functions/putNewImage";
-// import {deleteImage} from '../utils/api-functions/deleteImage'
+import getSearchImages from "../utils/api-functions/getSearchImages";
+import {deleteImage} from '../utils/api-functions/deleteImage'
+
 
 const Admin = () => {
 	const [alt, setAlt] = useState('')
@@ -9,6 +13,9 @@ const Admin = () => {
 	const [image, setImage] = useState('')
 	const [title, setTitle] = useState('')
 	const [uploadSuccess, setUploadSuccess] = useState(false); 
+	const [searchString, setSearchString] = useState('');
+	const [searchResult, setSearchResult] = useState([])
+	const [hasSearched, setHasSearched] =useState(false)	
 
 	useEffect(() => {
 		let timeoutId; 
@@ -29,13 +36,40 @@ const Admin = () => {
 			console.error('Error posting data:', error.message)
 		}
 	}
-	// const handleDeleteImage = async (imageId) => {
 
-	// }
+	const matchingImages = searchResult ? [...searchResult] : []
 
-	// const handleSearch = async () => {
+	console.log("searchResult 1:", searchResult);
+
+	const handleOnChange = (event) => {
 	
-	// }
+		setSearchString(event.target.value)
+	}
+
+	const handleSearch = async () => {
+		try{
+			const search = await getSearchImages(searchString)
+			setSearchResult(search)
+			setHasSearched(true);
+
+		}catch (error) {
+			console.error("Error getting search result:", error)
+		}
+		
+		console.log("searchResult 2:", searchResult);
+	}	
+	
+	const handleDeleteImage = async (imageId) => {
+		console.log('imageid:' , imageId);
+			try { 
+				await deleteImage(imageId)			
+			
+			} catch {
+				console.error( {message: 'Failed to delete'})			
+			}
+		
+
+	}
 
 	return(
 	<section className="m-5">
@@ -57,8 +91,8 @@ const Admin = () => {
 								const base64String = reader.result.split(',')[1]; 
 								setImage(base64String)
 							}
-					}
-						}}
+						}
+					}}
 				/>
 			</label>
 			<br />
@@ -111,16 +145,50 @@ const Admin = () => {
 			
 		<div className="flex flex-col">
 			<p>För att ta bort en bild, sök i databasen</p>
-			<label>
-				<p>Sök</p>
-				<input 
-					type="text"
-				/>
+			<label  htmlFor="search">
+				<span className="font-bold text-1xl">Sök</span>
+				<div className="flex items-center border border-darkgray rounded-md px-2 py-2 "> 
+					<div className="h-8 w-8">
+						<MdSearch size={30}/>
+					</div>
+					<input
+						placeholder="ex. frukost"
+						id="search"
+						type="text" 
+						value = {searchString}
+						onChange={handleOnChange}
+						className="w-full h-9 text-lg"
+					/>
+				</div>
 			</label>
-			{/* <Button onClick={handleSearch}>Sök</Button> */}
-			<div className="m-2">
-					<p>Sökresultat</p>
-			</div>
+				<div className="text-center p-3">
+						<Button onClick={handleSearch}>Sök</Button>
+						<div className="m-2">
+							<p>Sökresultat</p>
+						</div>
+						<p className="mt-4 ">{hasSearched ?"Klicka på den bilden du vill ta bort": ""}</p>
+				</div>
+					<div className="mt-5">
+					 	<ul> 
+							{matchingImages.length > 0 ? (
+								matchingImages.map((image) => (
+								<li 
+								key={image.imageId}>		
+										<h3>{image.title}</h3>
+										<img src={image.imageUrl} alt={image.alt} />
+										<Button 
+											onClick={() => handleDeleteImage(image.imageId)}
+											style="transparent">
+												<p>Ta bort bild </p> 
+												<p><RiDeleteBin6Line size={30} /> </p>
+										</Button>
+								</li>
+								))
+							) : (
+								hasSearched ? "Inga resultat matchade sökningen" : " "
+							)}
+						</ul> 
+					</div>			
 		</div>
 		</section>
 	)

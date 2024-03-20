@@ -12,7 +12,7 @@ const Root = () => {
 <VisibleButtonsProvider>
 	<div className="flex flex-col">
 		<Header/>
-		<main className="mt-[150px] mx-auto max-w-5xl h-screen h-svh relative">
+		<main className="mt-[150px] mb-10  mx-auto max-w-5xl h-screen h-svh relative">
 			<Outlet/>
 			<Footer/>
 		</main>	
