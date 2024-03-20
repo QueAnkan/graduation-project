@@ -76,6 +76,7 @@ const Admin = () => {
 	
 	<section className="mt-10 flex flex-col w-full md:w-[500px] lg:w-[800px]">
 		<form>
+		<section className="mb-10">
 			<div className="flex flex-col"> 
 				<h1 className="font-bold mt-5 text-xl mb-6" >Lägga till nya bilder i databasen</h1>
 			</div>
@@ -85,7 +86,10 @@ const Admin = () => {
 					id="imageFile"
 					type="file"
 					accept="image/jpg"
-					className="text-md"
+					className="text-md block w-full 
+					file:mr-4 file:py-2 file:px-4 file:rounded-md
+					file:border-0 file:text-md
+					file:bg-darkblue file:text-white"
 					onChange={(event) => {
 						const file = event.target.files[0]; 
 						if(file) {
@@ -99,46 +103,47 @@ const Admin = () => {
 					}}
 				/>
 			</label>
-			<section className="mb-6">
-				<label htmlFor="altText">
-					<h2  className="font-bold">Alternativ text</h2>
-					<p className="text-md w-80 md:w-11/12 lg:w-3/4">Texten beskriver innehållet i bilden och hjälper personer med synnedsättning att förstå dess betydelse</p>
-					<div className="flex items-center border border-darkgray rounded-md px-2 py-2 lg:w-1/2">
+		</section>
+		<section className="mb-10">
+			<label htmlFor="altText">
+				<h2  className="font-bold">Alternativ text</h2>
+				<p className="text-md w-80 md:w-11/12 lg:w-3/4">Texten beskriver innehållet i bilden och hjälper personer med synnedsättning att förstå dess betydelse</p>
+				<div className="flex items-center border border-darkgray rounded-md px-2 py-2 w-72 lg:w-1/2">
 					<input
 						id="altText"
 						type="text"
 						name="alt"
-						className="w-full h-9 text-lg"
-						placeholder="ex. " 
+						className="w-full h-9 text-base"
+						placeholder="ex. Färgad bild av en tallrik med flingor och ett glas mjölk. " 
 						onChange={(event) => setAlt(event.target.value)}/>
-						</div>
-				</label>
+				</div>
+			</label>
 			</section>
-			<section className="mb-6">
+			<section className="mb-10">
 				<label htmlFor="title">
 					<h2 className="font-bold">Titel</h2>
 					<p>Skriv den titel som ska vara till bilden</p>
-					<div className="flex items-center border border-darkgray rounded-md px-2 py-2 lg:w-1/2">
+					<div className="flex items-center border border-darkgray rounded-md p-2 w-72 lg:w-1/2">
 						<input
 							id="title"
 							type="text"
 							name="title"
-							className="w-full h-9 text-lg"
+							className="w-full h-9 text-base"
 							placeholder="ex. frukost" 
 							onChange={(event) => setTitle(event.target.value)}/>
 					</div>
 				</label>
 			</section>
-			<section className="mb-6">
-				<label htmlFor="colorCheckbox">
+			<section className="mb-16">
 					<div className="mb-4">
 						<h2 className="font-bold">Ange om bilden är i färg eller svart/vit</h2>
 					</div>
+				<label htmlFor="colorCheckbox" className="mr-4">
 					<input 
 						id="colorCheckbox"
 						type="checkbox"
 						value="color"
-						className="mb-4"
+						className="m-2"
 						checked={color === 'color'}
 						onChange={(event) => setColor(event.target.checked ? 'color': '')}
 						/>
@@ -155,18 +160,17 @@ const Admin = () => {
 					/>
 						Svart/vit bild
 				</label>
-				<div className="my-4">
+				<div className="my-10 mx-auto">
 				<Button onClick={handleSubmit}>Lägg till</Button>
 				{uploadSuccess && <p>Bilden har laddats upp framgångsrikt!</p>}
 				</div>
 			</section>
 		</form>
 			
-		<div className="flex flex-col">
-			<p>För att ta bort en bild, sök i databasen</p>
-			<label  htmlFor="search">
-				<span className="font-bold text-1xl">Sök</span>
-				<div className="flex items-center border border-darkgray rounded-md px-2 py-2 "> 
+		<div className="flex flex-col items-start">
+			<label htmlFor="search" className="w-full">			
+				<h2 className="font-bold">För att ta bort en bild, sök i databasen</h2>
+				<div className="flex items-center border border-darkgray rounded-md p-2 w-72 lg:w-1/2"> 
 					<div className="h-8 w-8">
 						<MdSearch size={30}/>
 					</div>
@@ -176,15 +180,13 @@ const Admin = () => {
 						type="text" 
 						value = {searchString}
 						onChange={handleOnChange}
-						className="w-full h-9 text-lg"
+						className="w-full h-9 text-base"
 					/>
 				</div>
 			</label>
-				<div className="text-center p-3">
+				<div className="py-6">
 						<Button onClick={handleSearch}>Sök</Button>
-						<div className="m-2">
-							<p>Sökresultat</p>
-						</div>
+						
 						<p className="mt-4 ">{hasSearched ?"Klicka på den bilden du vill ta bort": ""}</p>
 				</div>
 					<div className="mt-5">
@@ -215,105 +217,3 @@ const Admin = () => {
 
 export default Admin
 
-/* <div className="flex flex-col w-full md:w-[500px] lg:w-[800px]">
-			<section className="mb-4"> 
-				<h1 className="font-bold mt-5 text-xl mb-6">Lägga till nya bilder i databasen</h1>
-				<label htmlFor="input">
-					<input
-						className="text-md"
-						type="file"
-						accept="image/svg"
-						onChange={(event) => {
-							const file = event.target.files[0]; 
-							if(file) {
-								const reader = new FileReader(); 
-								reader.readAsDataURL(file); 
-								reader.onload = () => {
-									const base64String = reader.result.split(',')[1]; 
-									setImage(base64String)
-								}
-						}
-							}}
-					/>
-				</label>
-			</section>
-			<section className="mb-6">
-				<label htmlFor="text">
-				<span className="font-bold">Alternativ text</span>
-				<p className="text-md w-80 md:w-11/12 lg:w-3/4">Texten beskriver innehållet i bilden och hjälper personer med synnedsättning att förstå dess betydelse</p>
-					<div className="flex items-center border border-darkgray rounded-md px-2 py-2 lg:w-1/2">
-						<input
-							type="text"
-							placeholder="ex. tallrik med fil " 
-							onChange={(event) => setAlt(event.target.value)}
-							className="w-full h-9 text-lg"
-						/>
-					</div>
-
-				</label>
-			</section>
-			<section className="mb-6">
-				<label htmlFor="title">
-					<span className="font-bold">Titel</span>
-					<p>Skriv den titel som ska vara till bilden</p>
-						<div className="flex items-center border border-darkgray rounded-md px-2 py-2 lg:w-1/2">
-							<input
-								type="text"
-								placeholder="ex. frukost" 
-								onChange={(event) => setTitle(event.target.value)}
-								className="w-full h-9 text-lg"
-							/>
-						</div> 
-				</label>
-			</section>
-			<section className="mb-6">
-				<label htmlFor="checkbox">
-					<div className="mb-4">
-					<span className="font-bold">Ange om bilden är i färg eller svart/vit</span>
-					</div>
-					<input 
-						type="checkbox"
-						value="color"
-						checked={color === 'color'}
-						onChange={(event) => setColor(event.target.checked ? 'color': '')}
-						className="mb-4"
-						/>
-						Färgbild
-				</label>
-				<label htmlFor="checkbox">
-					<input 
-						type="checkbox"
-						value="bw"
-						checked={color === 'bw'}
-						onChange={(event) => setColor(event.target.checked ? 'bw' : '')}
-						className="m-2"
-						/>
-						Svart/vit bild
-				</label>
-				<br />
-				<div className="my-4">
-					<Button onClick={handleSubmit}>Lägg till</Button>
-					{uploadSuccess && <p>Bilden har laddats upp framgångsrikt!</p>}						
-				</div>
-			</section>
-			<label  htmlFor="search">
-							<p className="font-bold">För att ta bort bild, sök i databasen</p>
-							<div className="flex items-center border border-darkgray rounded-md px-2 py-2 lg:w-1/2"> 
-								<div className="h-8 w-8">
-									<MdSearch size={30}/>
-								</div>
-								<input
-									placeholder="ex. frukost"
-									id="search"
-									type="text" 
-									// value = {searchString}
-									// onChange={handleOnChange}
-									className="w-full h-9 text-lg"
-									/>
-							</div>
-						</label>
-				 <Button onClick={handleSearch}>Sök</Button> }
-				<div className="m-2">
-					<p>bilden som kommer ut</p>
-				</div>
-	</div> */
