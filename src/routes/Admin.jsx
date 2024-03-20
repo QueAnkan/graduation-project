@@ -74,16 +74,18 @@ const Admin = () => {
 	return(
 	
 	
-	<section className="m-5">
-			<form>
+	<section className="mt-10 flex flex-col w-full md:w-[500px] lg:w-[800px]">
+		<form>
 			<div className="flex flex-col"> 
-				<h1>Lägga till nya bilder i databasen</h1>
+				<h1 className="font-bold mt-5 text-xl mb-6" >Lägga till nya bilder i databasen</h1>
 			</div>
-			<label>
-				<p>Välj fil: </p>
+			<label htmlFor="imageFile">
+				<h2 className="font-bold">Välj fil: </h2>
 				<input
+					id="imageFile"
 					type="file"
-					accept="image/svg"
+					accept="image/jpg"
+					className="text-md"
 					onChange={(event) => {
 						const file = event.target.files[0]; 
 						if(file) {
@@ -97,53 +99,68 @@ const Admin = () => {
 					}}
 				/>
 			</label>
-			<br />
-			<label>
-				<span>Alternativ text</span>
-				<p>Texten beskriver innehållet i bilden och hjälper personer med synnedsättning att förstå dess betydelse</p>
-				<input
-					type="text"
-					name="alt"
-					placeholder="ex. " 
-					onChange={(event) => setAlt(event.target.value)}/>
-					
-			</label>
-			<br />
-			<label>
-				<span>Titel</span>
-				<p>Skriv den titel som ska vara till bilden</p>
-				<input
-					type="text"
-					name="title"
-					// value={title}
-					placeholder="ex. frukost" 
-					onChange={(event) => setTitle(event.target.value)}/>
-			</label>
-
-			<p>Ange om bilden är i färg eller svart/vit</p>
-			<label>
-				<input 
-					type="checkbox"
-					value="color"
-					checked={color === 'color'}
-					onChange={(event) => setColor(event.target.checked ? 'color': '')}
-					className="m-2"
-					/>
-					Färgbild
-			</label>
-			<label>
-				<input 
+			<section className="mb-6">
+				<label htmlFor="altText">
+					<h2  className="font-bold">Alternativ text</h2>
+					<p className="text-md w-80 md:w-11/12 lg:w-3/4">Texten beskriver innehållet i bilden och hjälper personer med synnedsättning att förstå dess betydelse</p>
+					<div className="flex items-center border border-darkgray rounded-md px-2 py-2 lg:w-1/2">
+					<input
+						id="altText"
+						type="text"
+						name="alt"
+						className="w-full h-9 text-lg"
+						placeholder="ex. " 
+						onChange={(event) => setAlt(event.target.value)}/>
+						</div>
+				</label>
+			</section>
+			<section className="mb-6">
+				<label htmlFor="title">
+					<h2 className="font-bold">Titel</h2>
+					<p>Skriv den titel som ska vara till bilden</p>
+					<div className="flex items-center border border-darkgray rounded-md px-2 py-2 lg:w-1/2">
+						<input
+							id="title"
+							type="text"
+							name="title"
+							className="w-full h-9 text-lg"
+							placeholder="ex. frukost" 
+							onChange={(event) => setTitle(event.target.value)}/>
+					</div>
+				</label>
+			</section>
+			<section className="mb-6">
+				<label htmlFor="colorCheckbox">
+					<div className="mb-4">
+						<h2 className="font-bold">Ange om bilden är i färg eller svart/vit</h2>
+					</div>
+					<input 
+						id="colorCheckbox"
+						type="checkbox"
+						value="color"
+						className="mb-4"
+						checked={color === 'color'}
+						onChange={(event) => setColor(event.target.checked ? 'color': '')}
+						/>
+						Färgbild
+				</label>
+				<label  htmlFor="bwCheckbox">
+					<input 
+					id="bwCheckbox"
 					type="checkbox"
 					value="bw"
 					checked={color === 'bw'}
 					onChange={(event) => setColor(event.target.checked ? 'bw' : '')}
 					className="m-2"
 					/>
-					Svart/vit bild
-			</label>
-			<Button onClick={handleSubmit}>Lägg till</Button>
-			{uploadSuccess && <p>Bilden har laddats upp framgångsrikt!</p>}
-			</form>
+						Svart/vit bild
+				</label>
+				<div className="my-4">
+				<Button onClick={handleSubmit}>Lägg till</Button>
+				{uploadSuccess && <p>Bilden har laddats upp framgångsrikt!</p>}
+				</div>
+			</section>
+		</form>
 			
 		<div className="flex flex-col">
 			<p>För att ta bort en bild, sök i databasen</p>
@@ -295,7 +312,7 @@ export default Admin
 									/>
 							</div>
 						</label>
-				{/* <Button onClick={handleSearch}>Sök</Button> */}
+				 <Button onClick={handleSearch}>Sök</Button> }
 				<div className="m-2">
 					<p>bilden som kommer ut</p>
 				</div>
