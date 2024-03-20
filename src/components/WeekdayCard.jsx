@@ -16,7 +16,7 @@ const WeekdayCard = (props) => {
 
 	let navigate = useNavigate()
 
-	const  moveNext = moveToNextDay
+	const moveNext = moveToNextDay
 
 	const moveBack = moveToFormerDay
 	function handleFormerDay() {
@@ -84,7 +84,10 @@ export default WeekdayCard
 /* TODO: 
 	-kolla var title ska vara till bilden! ska den ligga på eller under bilden??
 
-	-Mappa ut ImageContainer 
+	- när man klickar på detaljerad vy, visas dold array? med bilder under den bild man klickat på och den ursprungliga bilden blir mindre längst upp
+	-
+	- dölj resten av bilderna i ursprungsvyn? 
+	- 
 */
 
 

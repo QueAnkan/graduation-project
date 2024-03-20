@@ -6,6 +6,9 @@ import { useVisibilityStatus } from "../utils/VisibleButtonsProvider";
 const ImageContainer = () => {
 	const {isVisible} = useVisibilityStatus()
 
+	//tomma array:er där alla bilder pushas in beroende på view(veckodag)
+	//mappa ut varje array nedan (lägg en ul runt koden och gör li-element av befintlig kod)
+
 	return(
 
 		<>
