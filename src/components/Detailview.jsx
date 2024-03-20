@@ -22,11 +22,16 @@ const DetailView = (props) => {
 	return (
 		<>
 			<section>
-			<Button 
-				style="transparent">
-				<p><IoArrowUndo size={20}/></p>
-				<p>Stäng vyn</p>
-			</Button>
+				<div>
+					<Button 
+						style="transparent">
+						<p><IoArrowUndo size={20}/></p>
+						<p>Stäng vyn</p>
+					</Button>
+				</div>
+				<div>
+					<img src="" alt="" />
+				</div>
 			</section>
 		{isSearchOpen && (<SearchOverlay
 							isSearchOpen={isSearchOpen}
