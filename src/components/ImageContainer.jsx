@@ -2,14 +2,23 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { HiOutlineSquare2Stack } from "react-icons/hi2";
 import Button from "../utils/style-generators/buttonGenerator";
 import { useVisibilityStatus } from "../utils/VisibleElementProvider";
+import DetailedView from "./DetailedView";
+import { useState } from "react";
 
-const ImageContainer = ({ images, handleImageDelete }) => {
+
+
+const ImageContainer = ({ images, handleImageDelete, openSearchOverlay }) => {
 	const {isVisible} = useVisibilityStatus()
 
-
+const [selectedImageIndex, setSelectedImageIndex] = useState(null)
 	const handleDelete = (index) => {
 		handleImageDelete(index)
 	}
+
+	function openDetailedView(index) {
+		setSelectedImageIndex(index)
+	}
+
 
 	return (
 		<>
@@ -32,16 +41,20 @@ const ImageContainer = ({ images, handleImageDelete }) => {
 					<p className="text-xl font-bold">{image.title}</p>
 					</div>
 		<span className=" absolute right-0">
-			<Button style="transparent" >
+			<Button style="transparent"
+				onClick={() =>openDetailedView(index)} >
 				<p>Detaljerad vy</p>
 				<p>
 					<HiOutlineSquare2Stack size={40} />
 				</p>
 			</Button>
 		</span>
+		{selectedImageIndex === index && <DetailedView
+		openSearchOverlay={openSearchOverlay}/>}
 				</li>
 			))}
 		</ul>
+			
 	</>
 );
 };

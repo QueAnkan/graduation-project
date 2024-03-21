@@ -3,7 +3,9 @@ import { MdOutlineClose, MdSearch } from "react-icons/md";
 import Button from '../utils/style-generators/buttonGenerator';
 import getSearchImages from "../utils/api-functions/getSearchImages";
 
-const SearchOverlay = ({isSearchOpen, handleCloseSearch, handleImageSelected, view}) => {
+const SearchOverlay = ({isSearchOpen, 
+	
+	handleCloseSearch, handleImageSelected, mode}) => {
 	if(!isSearchOpen) {
 		return null
 	}
@@ -101,7 +103,20 @@ console.log("searchResult 1:", searchResult);
 							</div>
 						</label>
 					<div className="text-center p-3">
-						<Button onClick={handleSearch}>Sök</Button>
+					{mode === "weekday" && (
+                    <div className="mb-3">
+                        {/* Visa knappar specifika för veckovyn */}
+                        <Button onClick={handleSearch}>Sök efter veckobilder</Button>
+                    </div>
+                )}
+                {mode === "detailed" && (
+                    <div className="mb-3">
+                        {/* Visa knappar specifika för detaljerad vy */}
+                        <Button onClick={handleSearch}>Sök efter detaljerade bilder</Button>
+                    </div>
+                )}
+
+						{/* <Button onClick={handleSearch}>Sök</Button> */}
 						<p className="mt-4 ">{hasSearched ?"Klicka på den bilden du vill lägga till": ""}</p>
 					</div>
 					<div>

@@ -9,11 +9,11 @@ import { useEffect, useState } from "react";
 import SearchOverlay from "./SearchOverlay";
 
 
-const saveImagesToLocalStorage = (key, images) => {
+export const saveImagesToLocalStorage = (key, images) => {
 		localStorage.setItem(key, JSON.stringify(images));
 };
 	
-const getImagesFromLocalStorage = (key) => {
+ export const getImagesFromLocalStorage = (key) => {
     const images = localStorage.getItem(key);
     return images ? JSON.parse(images) : [];
 };
@@ -21,7 +21,7 @@ const getImagesFromLocalStorage = (key) => {
 const WeekdayCard = (props) => {
 	const {isVisible} = useVisibilityStatus()
 	const [isSearchOpen, setIsSearchOpen] = useState(false)
-	const [selectedImages, setSeletedImages] = useState(getImagesFromLocalStorage(props.view))
+	const [selectedImages, setSelectedImages] = useState(getImagesFromLocalStorage(props.view))
 
 	const bgColorClassName = getBgColor(props.view)
 
@@ -33,12 +33,12 @@ const WeekdayCard = (props) => {
 
 	const moveBack = moveToFormerDay
 	function handleFormerDay() {
-		setSeletedImages([]);
+		setSelectedImages([]);
 		navigate(moveBack[props.view])
 	}
 
 	function handleNextDay() {
-		setSeletedImages([]);
+		setSelectedImages([]);
 		navigate(moveNext[props.view])
 	}
 
@@ -51,7 +51,10 @@ const WeekdayCard = (props) => {
 	}
 
 	const handleImageSelected = (selectedImage) => {
-		setSeletedImages([ ...selectedImages,selectedImage]);
+		
+		const updatedImages = [...selectedImages, selectedImage];
+        setSelectedImages(updatedImages);
+        saveImagesToLocalStorage(props.view, updatedImages);
 	}
 
 	useEffect(() => {
@@ -60,7 +63,7 @@ const WeekdayCard = (props) => {
 
 	const handleImageDelete = (indexDelete) => {
 		const updatedImages = selectedImages.filter((_, index) => index !== indexDelete);
-		setSeletedImages(updatedImages);
+		setSelectedImages(updatedImages);
 		saveImagesToLocalStorage(props.view, updatedImages)
 	}
 
@@ -100,7 +103,8 @@ const WeekdayCard = (props) => {
 			<section className="flex flex-col items-center w-fit mx-auto">	
 				<ImageContainer 
 					images={selectedImages} 	
-					handleImageDelete={handleImageDelete}/>
+					handleImageDelete={handleImageDelete}
+					openSearchOverlay={openSearchOverlay}/>
 			</section>	
 			
 			<span className="mx-auto inline-block mt-20 mb-8 ">
@@ -115,7 +119,11 @@ const WeekdayCard = (props) => {
 		{isSearchOpen && <SearchOverlay
 							isSearchOpen={isSearchOpen}
 							handleCloseSearch={handleCloseSearch}
-							handleImageSelected={handleImageSelected}/>}
+							handleImageSelected={(selectedImage) => handleImageSelected(selectedImage, 'WeekdayCard')}
+							mode="weekday"
+							/>
+							}
+							
 	</>
 	)
 }
