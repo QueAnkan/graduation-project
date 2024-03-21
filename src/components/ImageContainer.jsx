@@ -3,21 +3,49 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { HiOutlineSquare2Stack } from "react-icons/hi2";
 import Button from "../utils/style-generators/buttonGenerator";
 import { useVisibilityStatus } from "../utils/VisibleElementProvider";
-import DetailView from "./Detailview";
+// import DetailView from "./Detailview";
+
 
 
 const ImageContainer = ({ images, handleImageDelete}) => {
 	const {isVisible} = useVisibilityStatus()
-	const [isDetailViewOpen, setIsDetailViewOpen] = useState(false); 
+	// const [isDetailViewOpen, setIsDetailViewOpen] = useState(false); 
 
+	const [activeImage, setActiveImage] = useState(null);
+	const [linkedImages, setLinkedImages] = useState({});
+	
+	console.log("activeImage1",activeImage);
+	// Exempel på att lägga till en kopplad bild
+	const addLinkedImage = (index, newImage) => {
+		setLinkedImages(prev => ({
+			...prev,
+			[index]: [...(prev[index] || []), newImage]
+		}));
+	}; 
 
+	
+	// När en knapp klickas
+	const handleButtonClick = (index) => {
+		setActiveImage(index);
+		console.log(' detaljerad vy click');
+	};
+
+	console.log("activeImage2",activeImage)
 	const handleDelete = (index) => {
 		handleImageDelete(index)
 	}
-	
-	const handleDetailView = () => {
+
+	const handleAddLinkedImage = (newImage) => {
+		if(activeImage !== null ) {
+			addLinkedImage(activeImage, newImage);
+		} else {
+			console.error("Active image is null")
+		}
+    };
+
+	/* const handleDetailView = () => {
 		setIsDetailViewOpen(!isDetailViewOpen)
-	}
+	} */
 
 	return (
 		<>
@@ -27,7 +55,8 @@ const ImageContainer = ({ images, handleImageDelete}) => {
 					<span className="absolute right-0">
 						{isVisible && (
 							<Button 
-							style="delete" 	/* className="bg-white" */ onClick={() => handleDelete(index)}>
+							style="delete"
+							 onClick={() => handleDelete(index)}>
 								<p>Ta bort bild</p>
 								<p>
 									<RiDeleteBin6Line size={30} />
@@ -36,24 +65,47 @@ const ImageContainer = ({ images, handleImageDelete}) => {
 						)}
 					</span>
 					<div className="border border-darkblue rounded-sm bg-white text-center">
-					<img  src={image.imageUrl} alt={image.alt} />
-					<p className="text-xl font-bold">{image.title}</p>
+						<img  src={image.imageUrl} alt={image.alt} />
+						<p className="text-xl font-bold">{image.title}</p>
 					</div>
-		<span className=" absolute right-0">
-			<Button style="transparent" onClick={handleDetailView}>
-				<p>Detaljerad vy</p>
-				<p>
-					<HiOutlineSquare2Stack size={40} />
-				</p>
-			</Button>
-			{isDetailViewOpen && <DetailView />}
-		</span>
+					<span className=" absolute right-0">
+						<Button style="transparent" onClick={() => handleButtonClick(index)}>
+							<p>Detaljerad vy</p>
+							<p>
+								<HiOutlineSquare2Stack size={40} />
+							</p>
+						</Button>
+					</span>
 				</li>
 			))}
 		</ul>
+		<div>hej
+		<ul>
+        {Object.entries(linkedImages).map(([index, images]) => (
+            <li key={index}>
+                {images.map((image, subIndex) => (
+                    <div key={subIndex}>
+                        <img src={image.imageUrl} alt={image.alt} />
+                    </div>
+                ))}
+            </li>
+        ))}
+    </ul>
+		
+		</div>
 	</>
 );
 };
 
 
 export default ImageContainer
+
+
+/*  <ul>
+            {linkedImages[activeImage] && linkedImages[activeImage].map((image, index) => (
+                <li key={index}>
+                        <img src={image.imageUrl} alt={image.alt} />
+                 </li>
+                    ))}
+                </ul>
+				*/

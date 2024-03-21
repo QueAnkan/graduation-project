@@ -25,6 +25,10 @@ const WeekdayCard = (props) => {
 	const [selectedImages, setSeletedImages] = useState(getImagesFromLocalStorage(props.view))
 	const bgColorClassName = getBgColor(props.view)
 
+	// let [activeImage, setActiveImage] = useState(null); // Håller den aktiva bilden
+    // let [linkedImages, setLinkedImages] = useState({}); // Håller de kopplade bilderna
+	
+
 	let navigate = useNavigate()
 
 	const {toggleIsVisible} = useVisibilityStatus()
@@ -69,6 +73,23 @@ const WeekdayCard = (props) => {
 		console.log('click');
 	}
 	
+	// Funktion för att lägga till en kopplad bild till den aktiva bilden
+    // const handleAddLinkedImage = (newImage) => {
+	// 	if (activeImage !== null ) {
+	// 		setLinkedImages((prevLinkedImages) => ({
+	// 			...prevLinkedImages,
+	// 			[activeImage]: [...(prevLinkedImages[activeImage] || []), newImage],
+	// 		}));		
+	// 	} else {
+	// 		console.error("Active image is null")
+	// 	}
+    // };
+	/* const addLinkedImage = (index, newImage) => {
+		setLinkedImages(prev => ({
+			...prev,
+			[index]: [...(prev[index] || []), newImage]
+		}));
+	}; */
 
 	return( 	
 	<>
@@ -100,7 +121,11 @@ const WeekdayCard = (props) => {
 			<section className="flex flex-col items-center w-fit mx-auto">	
 				<ImageContainer 
 					images={selectedImages} 	
-					handleImageDelete={handleImageDelete}/>
+					handleImageDelete={handleImageDelete}
+					// setActiveImage={setActiveImage}
+					// linkedImages={linkedImages}
+                    // addLinkedImage={handleAddLinkedImage}
+					/>
 			</section>	
 			
 			<span className="mx-auto inline-block mt-20 mb-8 ">
@@ -116,6 +141,8 @@ const WeekdayCard = (props) => {
 							isSearchOpen={isSearchOpen}
 							handleCloseSearch={handleCloseSearch}
 							handleImageSelected={handleImageSelected}
+							activeImage={activeImage}
+							// addLinkedImage={handleAddLinkedImage}
 						/>)}
 	</>
 	)
