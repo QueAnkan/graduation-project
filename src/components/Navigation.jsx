@@ -20,7 +20,7 @@ const Navigation = () => {
 					<li 
 						onClick={handleOnclick}
 						className="grid justify-items-center p-2 text-[10px] text-darkblue"><MdEdit className='size-7'/> Redigera veckovy</li>
-					<NavLink to="/admin" className="grid justify-items-center p-2 text-[10px] text-darkblue"><MdPerson className='size-7'/> Admin</NavLink>
+					<NavLink to="/login" className="grid justify-items-center p-2 text-[10px] text-darkblue"><MdPerson className='size-7'/> Admin</NavLink>
 				</ul> 
 				</nav>
 		</div>

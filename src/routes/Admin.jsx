@@ -5,6 +5,8 @@ import Button from '../utils/style-generators/buttonGenerator'
 import { putNewImage } from "../utils/api-functions/putNewImage";
 import getSearchImages from "../utils/api-functions/getSearchImages";
 import {deleteImage} from '../utils/api-functions/deleteImage'
+import KeepLoggedIn from "../utils/login/KeepLoggedIn";
+import LogOut from "../utils/login/Logout";
 
 
 const Admin = () => {
@@ -73,6 +75,8 @@ const Admin = () => {
 
 	return(
 	<section className="m-5">
+		<KeepLoggedIn />
+		<LogOut/>
 			<form>
 			<div className="flex flex-col"> 
 				<h1>Lägga till nya bilder i databasen</h1>

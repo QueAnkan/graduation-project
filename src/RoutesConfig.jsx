@@ -10,6 +10,7 @@ import Saturday from "./routes/Saturday"
 import Sunday from "./routes/Sunday"
 import ErrorPage from "./routes/ErrorPage"
 import Admin from "./routes/Admin"
+import Login from "./routes/Login"
 
 const router = createBrowserRouter([
 
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
 			{
 				path: "/sunday",
 				element: <Sunday/>
+			},
+			{
+				path: "/login", 
+				element: <Login />
 			},
 			{
 				path: "/admin", 
