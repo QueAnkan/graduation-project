@@ -2,7 +2,6 @@ import { Outlet } from "react-router-dom"
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import Navigation from "../components/Navigation"
-import SearchOverlay from "../components/SearchOverlay"
 import "/src/base.css"
 import VisibleElementProvider from "../utils/VisibleElementProvider";
 

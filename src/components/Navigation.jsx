@@ -19,7 +19,8 @@ const Navigation = () => {
 					<NavLink to="/monday" className="grid justify-items-center p-2 text-[10px] text-darkblue"><MdCalendarToday className='size-7'/> Min veckovy</NavLink>
 					<li 
 						onClick={handleOnclick}
-						className="grid justify-items-center p-2 text-[10px] text-darkblue"><MdEdit className='size-7'/> Redigera veckovy</li>
+						tabIndex={0}
+						className="grid justify-items-center p-2 text-[10px] text-darkblue cursor-pointer"><MdEdit className='size-7'/> Redigera veckovy</li>
 					<NavLink to="/login" className="grid justify-items-center p-2 text-[10px] text-darkblue"><MdPerson className='size-7'/> Admin</NavLink>
 				</ul> 
 				</nav>
