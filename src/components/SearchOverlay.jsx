@@ -3,6 +3,7 @@ import { MdOutlineClose, MdSearch } from "react-icons/md";
 import Button from '../utils/style-generators/buttonGenerator';
 import getSearchImages from "../utils/api-functions/getSearchImages";
 import { isSearchValidation } from "../utils/validations/SearchValidation";
+import { p } from "@antfu/utils";
 
 const SearchOverlay = ({isSearchOpen, handleCloseSearch, handleImageSelected, view}) => {
 	if(!isSearchOpen) {
@@ -12,16 +13,13 @@ const SearchOverlay = ({isSearchOpen, handleCloseSearch, handleImageSelected, vi
 	const [searchString, setSearchString] = useState('');
 	const [searchResult, setSearchResult] = useState([])
 	const [hasSearched, setHasSearched] =useState(false)
-	
-	const matchingImages = searchResult ? [...searchResult] : []
-
 	const [searchIsDirty, setSearchIsDirty] =useState(false)
-
 	const [searchIsValid, searchErrorMessage] = isSearchValidation(searchString)
-
+	const [imageAdded, setImageAdded] =useState(false)
+	const matchingImages = searchResult ? [...searchResult] : []
 	const visibleSearchError = searchIsDirty ? (!searchIsValid ? 'border border-red' : '') : ''
 
-console.log("searchResult 1:", searchResult);
+	const addedClass = imageAdded ? "absolute top-1/3 mx-auto border border-lightgray rounded-md h-32 w-fit flex items-center px-8 z-10 bg-lightwhite shadow-lg shadow-lightwhite" : "hidden"
 
 	const handleOnChange = (event) => {	
 		const lowerCaseValue =event.target.value.toLowerCase()
@@ -30,7 +28,6 @@ console.log("searchResult 1:", searchResult);
 
 	const handleSearch = async () => {
 		try{
-
 			const search = await getSearchImages(searchString)
 			setSearchResult(search)
 			setHasSearched(true);
@@ -38,12 +35,18 @@ console.log("searchResult 1:", searchResult);
 		}catch (error) {
 			console.error("Error getting search result:", error)
 		}
-		
-		console.log("searchResult 2:", searchResult);
 	}	
+
+	const addedMessage = () => {
+		setImageAdded(true)
+		setTimeout(() => {
+			setImageAdded(false);
+					}, 1500);
+	}
 
 	const handleImageClick = (image) => {
 		handleImageSelected(image)
+		addedMessage()
 	}
 	
 
@@ -78,8 +81,8 @@ console.log("searchResult 1:", searchResult);
 						<div className="h-10 pt-2 text-red"> {searchIsDirty ? searchErrorMessage  : ''} </div>
 					<div className="text-center p-3">
 						<Button disabled={!searchString} onClick={handleSearch}>Sök</Button>
-						<p className="mt-4 ">{hasSearched ?"Klicka på den bilden du vill lägga till": ""}</p>
-					</div>
+						<p className="mt-6 font-bold ">{hasSearched ?"Klicka på den bild du vill lägga till": ""}</p>
+					</div>		
 					<div>
 					 	<ul className="max-w-xl p-4 sm:flex flex-cols"> 
 							{matchingImages.length > 0 ? (
@@ -98,6 +101,7 @@ console.log("searchResult 1:", searchResult);
 				</div>
 				
 			</div>
+			<div className={`${addedClass}`}>{!imageAdded ?<p></p>: <p>Bilden är tillagd i ditt schema</p> }</div>
 		</section>
 	)
 }
