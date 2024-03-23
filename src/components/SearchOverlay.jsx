@@ -3,7 +3,7 @@ import { MdOutlineClose, MdSearch } from "react-icons/md";
 import Button from '../utils/style-generators/buttonGenerator';
 import getSearchImages from "../utils/api-functions/getSearchImages";
 import { isSearchValidation } from "../utils/validations/SearchValidation";
-import { p } from "@antfu/utils";
+
 
 const SearchOverlay = ({isSearchOpen, handleCloseSearch, handleImageSelected, view}) => {
 	if(!isSearchOpen) {

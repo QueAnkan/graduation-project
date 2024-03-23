@@ -7,6 +7,7 @@ import getSearchImages from "../utils/api-functions/getSearchImages";
 import {deleteImage} from '../utils/api-functions/deleteImage'
 import KeepLoggedIn from "../utils/login/KeepLoggedIn";
 import LogOut from "../utils/login/Logout";
+import { isTitleValid, isAltValid } from "../utils/validations/UploadValidation";
 
 
 const Admin = () => {
@@ -17,7 +18,16 @@ const Admin = () => {
 	const [uploadSuccess, setUploadSuccess] = useState(false); 
 	const [searchString, setSearchString] = useState('');
 	const [searchResult, setSearchResult] = useState([])
-	const [hasSearched, setHasSearched] =useState(false)	
+	const [hasSearched, setHasSearched] =useState(false)
+	const [titleIsDirty, setTitleIsDirty] = useState(false)
+	const [altIsDirty, setAltIsDirty] = useState(false)
+	const [imageIsDirty, setImageIsDirty] =useState(false)
+
+	const [titleIsValid, titleErrorMessage] = isTitleValid(title)
+	const [altIsValid, altErrorMessage] = isAltValid(alt)
+	const [colorErrorMessage, setColorErrorMessage]= useState('')
+	const [imageErrorMessage, setImageErrorMessage]= useState('')
+
 
 	useEffect(() => {
 		let timeoutId; 
@@ -30,8 +40,30 @@ const Admin = () => {
 	}, [uploadSuccess])
 
 	const handleSubmit = async (event) => {
+
+		
+			
+
 		event.preventDefault(); 
 		try {
+			if (!image){
+				setImageIsDirty(true)
+				return
+			}
+			if (!alt){
+				setAltIsDirty(true)
+				return
+			}
+			if(!title){
+				setTitleIsDirty(true)
+				return
+			}
+			if (!color){
+				setColorErrorMessage("Vänligen välj om bilden är i färg eller svartvitt.")
+				return
+			}
+
+
 			await putNewImage(alt, color, image, title);
 			setUploadSuccess(true); 
 		}catch (error) {
@@ -41,11 +73,9 @@ const Admin = () => {
 
 	const matchingImages = searchResult ? [...searchResult] : []
 
-	console.log("searchResult 1:", searchResult);
 
 	const handleOnChange = (event) => {
-	
-		setSearchString(event.target.value)
+			setSearchString(event.target.value)
 	}
 
 	const handleSearch = async () => {
@@ -56,9 +86,7 @@ const Admin = () => {
 
 		}catch (error) {
 			console.error("Error getting search result:", error)
-		}
-		
-		console.log("searchResult 2:", searchResult);
+		}		
 	}	
 	
 	const handleDeleteImage = async (imageId) => {
@@ -69,8 +97,6 @@ const Admin = () => {
 			} catch {
 				console.error( {message: 'Failed to delete'})			
 			}
-		
-
 	}
 
 	return(
@@ -84,11 +110,11 @@ const Admin = () => {
 						<h1 className="font-bold mt-5 text-xl mb-6" >Lägga till nya bilder i databasen</h1>
 					</div>
 					<label htmlFor="imageFile">
-						<h2 className="font-bold">Välj fil: </h2>
+						<h2 className="font-bold">Välj en fil i jpeg-format: </h2>
 						<input
 							id="imageFile"
 							type="file"
-							accept="image/jpg"
+							accept="image/jpg, img/jpeg"
 							className="text-md block w-full 
 							file:mr-4 file:py-2 file:px-4 file:rounded-md
 							file:border-0 file:text-md
@@ -106,7 +132,12 @@ const Admin = () => {
 							}}
 						/>
 					</label>
+					<div className="text-red">{imageErrorMessage}</div>
 				</section>
+
+
+
+
 				<section className="mb-10">
 					<label htmlFor="altText">
 						<h2  className="font-bold">Alternativ text</h2>
@@ -117,11 +148,17 @@ const Admin = () => {
 								type="text"
 								name="alt"
 								className="w-full h-9 text-base"
-								placeholder="ex. Färgad bild av en tallrik med flingor och ett glas mjölk. " 
-								onChange={(event) => setAlt(event.target.value)}/>
+								placeholder="ex. Färgad bild av en tallrik med flingor och ett glas mjölk. max 150 tecken " 
+								max={120}
+								onChange={(event) => setAlt(event.target.value)}
+								onBlur={() => setAltIsDirty(true)}/>
 						</div>
 					</label>
+					<div className="h-10 pt-2 text-red"> {altIsDirty ? altErrorMessage  : ''}</div>
 				</section>
+
+
+
 				<section className="mb-10">
 					<label htmlFor="title">
 						<h2 className="font-bold">Titel</h2>
@@ -133,10 +170,16 @@ const Admin = () => {
 								name="title"
 								className="w-full h-9 text-base"
 								placeholder="ex. frukost" 
-								onChange={(event) => setTitle(event.target.value)}/>
+								maxLength={35}
+								onChange={(event) => setTitle(event.target.value)}
+								onBlur={() => setTitleIsDirty(true)}/>
 						</div>
 					</label>
+					<div className="h-10 pt-2 text-red"> {titleIsDirty ? titleErrorMessage  : ''}</div>
 				</section>
+
+
+
 				<section className="mb-16">
 						<div className="mb-4">
 							<h2 className="font-bold">Ange om bilden är i färg eller svart/vit</h2>
@@ -163,13 +206,22 @@ const Admin = () => {
 						/>
 							Svart/vit bild
 					</label>
-					<div className="my-10 mx-auto">
-					<Button onClick={handleSubmit}>Lägg till</Button>
+					 <div className="text-red">{colorErrorMessage}</div>
+					<div className="my-10 mx-auto ">
+						<p className="pb-4">När alla fält är ifyllda kan du lägga till en bild i databasen.</p>
+					<Button 
+						onClick={handleSubmit}
+						>Lägg till</Button>
 					{uploadSuccess && <p>Bilden har laddats upp framgångsrikt!</p>}
 					</div>
 				</section>
 			</form>
 			
+
+
+
+
+
 		<div className="flex flex-col items-start">
 			<label htmlFor="search" className="w-full">			
 				<h2 className="font-bold">För att ta bort en bild, sök i databasen</h2>
