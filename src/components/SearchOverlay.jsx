@@ -41,7 +41,7 @@ const SearchOverlay = ({isSearchOpen, handleCloseSearch, handleImageSelected, vi
 		setImageAdded(true)
 		setTimeout(() => {
 			setImageAdded(false);
-					}, 1500);
+					}, 2000);
 	}
 
 	const handleImageClick = (image) => {
@@ -79,7 +79,7 @@ const SearchOverlay = ({isSearchOpen, handleCloseSearch, handleImageSelected, vi
 							</div>
 						</label>
 						<div className="h-10 pt-2 text-red"> {searchIsDirty ? searchErrorMessage  : ''} </div>
-					<div className="text-center p-3">
+					<div className="text-center p-3 mt-8">
 						<Button disabled={!searchString} onClick={handleSearch}>Sök</Button>
 						<p className="mt-6 font-bold ">{hasSearched ?"Klicka på den bild du vill lägga till": ""}</p>
 					</div>		
