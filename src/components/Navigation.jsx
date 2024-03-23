@@ -1,10 +1,15 @@
 import {MdHomeFilled, MdCalendarToday, MdEdit, MdPerson} from 'react-icons/md'
 import { useVisibilityStatus } from '../utils/VisibleElementProvider'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Navigate} from 'react-router-dom'
+import { isLoggedInAtom } from '../data/atom'
+import {useRecoilState} from 'recoil'
+import { useState } from 'react'
 
 const Navigation = () => {
 
 	const {toggleIsVisible} = useVisibilityStatus()
+	const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInAtom)
+	// const isLoggedIn = useRecoilState(isLoggedInAtom)
 
 	const handleOnclick = () => {
 		toggleIsVisible()
@@ -20,7 +25,8 @@ const Navigation = () => {
 					<li 
 						onClick={handleOnclick}
 						className="grid justify-items-center p-2 text-[10px] text-darkblue"><MdEdit className='size-7'/> Redigera veckovy</li>
-					<NavLink to="/login" className="grid justify-items-center p-2 text-[10px] text-darkblue"><MdPerson className='size-7'/> Admin</NavLink>
+					 <NavLink to="/login" className="grid justify-items-center p-2 text-[10px] text-darkblue"><MdPerson className='size-7' /> Admin</NavLink>
+				
 				</ul> 
 				</nav>
 		</div>

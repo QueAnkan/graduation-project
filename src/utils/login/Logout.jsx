@@ -1,29 +1,35 @@
-import { uNameAtom, uPassAtom, isLoggedInAtom, isLoggingOutAtom, isDisabledAtom} from "../../data/atom";
+import { uNameAtom, uPassAtom, isLoggedInAtom, isLoggingOutAtom, formIsDirtyAtom} from "../../data/atom";
 import { useRecoilState } from "recoil";
-import { NavLink } from "react-router-dom";
+import { NavLink, Navigate, useLocation } from "react-router-dom";
 import Button from '../style-generators/buttonGenerator'
+import { useEffect } from "react";
 
 const LogOut = () => {
 	const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInAtom)
 	const [isLoggingOut, setIsLoggingOut] = useRecoilState(isLoggingOutAtom)
-	const [isDisabled, setIsDisabled] = useRecoilState(isDisabledAtom)
 	const [uName, setUName] = useRecoilState(uNameAtom)
 	const [uPass, setUPass] = useRecoilState(uPassAtom)
+	const [formIsDirty, setFormIsDirty] = useRecoilState(formIsDirtyAtom)
 
+	console.log("Är inloggad: ", isLoggedIn)
+	
 	const handleOnclick = () => {	
 		setIsLoggedIn(false)
 		setIsLoggingOut(true)
-		setIsDisabled(false)
-		setUName('')
+		setUName('');
+		setUPass('');
+		setFormIsDirty(false)
+		console.log('Loggat ut', isLoggedIn)
+	}
+	if (isLoggingOut) {
+		
+		return <Navigate to="/login" />
+		
 	}
 
 	return(
-		<div className="logout-container">
-			<NavLink 
-				to='/login'
-				onClick={handleOnclick}>
-				<Button> Logga Ut </Button>
-			</NavLink>
+		<div>			
+			<Button onClick={handleOnclick}> Logga Ut </Button>
 		</div>
 	)
 }

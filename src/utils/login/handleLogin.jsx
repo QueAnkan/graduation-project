@@ -5,11 +5,13 @@ import { formIsDirtyAtom, uNameAtom, uPassAtom } from '../../data/atom'
 
 const users = [...user]
 
+console.log('users', users)
+
 
 export const NameInput = () => {
 	const [uName, setUName] = useRecoilState(uNameAtom)
 
-	const handleNameChange = () => {
+	const handleNameChange = (event) => {
 		setUName(event.target.value)
 	}
 	return (
@@ -31,7 +33,7 @@ export const NameInput = () => {
 export const PassInput = () => {
 	const [uPass, setUPass] = useRecoilState(uPassAtom)
 
-	const handlePassChange = () => {
+	const handlePassChange = (event) => {
 		setUPass(event.target.value)
 	}
 
@@ -51,15 +53,24 @@ export const PassInput = () => {
 	)
 }
 
+
+
 export const IsMatching = () => {
 	const [uName, setUName] = useRecoilState(uNameAtom)
 	const [uPass, setUpass] = useRecoilState(uPassAtom)
 
+	console.log('Användarnamn:', uName)
+	console.log('Lösenord:', uPass)
+
 	const match = users.find(user => user.name === uName && user.password === uPass)
 
 	if(match !== undefined) {
+		console.log('matchningen lyckades!')
+		console.log('matchningen lyckades:', match !== undefined);
 		return true 
 	} else {
+		console.log('matchningen misslyckades!')
+	
 		return false 
 	}
 }

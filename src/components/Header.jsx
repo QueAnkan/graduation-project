@@ -26,7 +26,7 @@ const Header = () => {
 					<li 
 						onClick={handleOnclick}
 						className="grid justify-items-center text-sm text-darkblue"><MdEdit className='size-7'/> Redigera veckovy</li>			
-					<NavLink to="/admin"><li className="grid justify-items-center text-sm text-darkblue"><MdPerson className='size-7'/> Admin</li></NavLink>
+					<NavLink to="/login"><li className="grid justify-items-center text-sm text-darkblue"><MdPerson className='size-7'/> Admin</li></NavLink>
 				</ul> 
 				</nav>
 				<div className="hidden lg:flex">

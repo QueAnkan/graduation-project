@@ -1,5 +1,5 @@
 import {useRecoilState} from 'recoil'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {Navigate} from 'react-router-dom'
 import { NameInput, PassInput, IsMatching } from "../utils/login/handleLogin"
 import { uNameAtom, uPassAtom, isLoggedInAtom, isDisabledAtom, formIsDirtyAtom } from '../data/atom'
@@ -7,34 +7,42 @@ import Button from "../utils/style-generators/buttonGenerator"
 
 const Login = () => {
 	const [uName, setUName] = useRecoilState(uNameAtom)
-	const [uPass, setUPass] = useRecoilState(uPassAtom)
-	const [shouldNavigate, setShouldNavigate] = useState(false)
-	const [formIsDirty, setFormIsDirty] = useRecoilState(formIsDirtyAtom)
-	const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInAtom)
-	const [isDisabled, setIsDisabled] = useRecoilState(isDisabledAtom)
-
-	const loginMatch = IsMatching()
-	const isLoggedInMessage = isDisabled ? 'Du är redan inloggad, logga först ut om du vill logga in som annan användare' : ''
-	const loginErrorMessage = formIsDirty ? 'Vänligen kontrollera inloggningsuppgifterna' : ''
-
-	const handleSubmit = (event) => {
-		event.preventDefault()
-		if(isLoggedIn) {
-			setIsDisabled(true)
-		} else if (loginMatch) {
-			setShouldNavigate(true)
-			setUPass('')
-			setFormIsDirty(false)
-			setIsLoggedIn(true); 
-		} else {
-			setFormIsDirty(true);
+		const [uPass, setUPass] = useRecoilState(uPassAtom)
+		const [shouldNavigate, setShouldNavigate] = useState(false)
+		const [formIsDirty, setFormIsDirty] = useRecoilState(formIsDirtyAtom)
+		const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInAtom)
+		
+		const loginErrorMessage = formIsDirty ? 'Vänligen kontrollera inloggningsuppgifterna' : ''
+		const loginMatch = IsMatching()
+		
+		
+		const handleSubmit = (event) => {
+			console.log('handlesubmit anropas')
+			event.preventDefault()
+			console.log('Logging match 2', loginMatch)
+			if(loginMatch) {
+				console.log('Logging match 2', loginMatch)
+				setShouldNavigate(true)
+				setIsLoggedIn(true)
+				setFormIsDirty(false)
+				console.log('Logged in successfully. isLoggedIn:',isLoggedIn);
+			} else {
+				setFormIsDirty(true);
+			}
+		
+			}
+		if (shouldNavigate) {
+			return <Navigate to='/admin' />
+		
 		}
 
-		}
-	if (shouldNavigate) {
-		return <Navigate to='/admin' />
-
-	}
+		// useEffect(() => {
+		// 	console.log('useEffect triggered. isLoggedIn:', isLoggedIn);
+		// 	if(isLoggedIn) {
+		// 		return <Navigate to="/admin" />
+		// 	}
+		// }, [isLoggedIn])
+		// console.log('Logging match 3', loginMatch)
 
 	return (
 		<section className="bg-white mt-10 p-2 mb-20 border border-darkgray w-full md:w-[400px]">
@@ -47,15 +55,14 @@ const Login = () => {
 					<PassInput />
 					<Button 
 						type="submit"
-						disabled={isDisabled}
 						onClick={handleSubmit}
 						>Logga in</Button>
 					<div>{loginErrorMessage}</div>
-					<div>{isLoggedInMessage}</div>
 				</form>
 			</div>
 		</section>
-	)
+		
+    );
 }
 
 export default Login
