@@ -21,7 +21,7 @@ const Admin = () => {
 	const [hasSearched, setHasSearched] =useState(false)
 	const [titleIsDirty, setTitleIsDirty] = useState(false)
 	const [altIsDirty, setAltIsDirty] = useState(false)
-	const [imageIsDirty, setImageIsDirty] =useState(false)
+	// const [imageIsDirty, setImageIsDirty] =useState(false)
 
 	const [titleIsValid, titleErrorMessage] = isTitleValid(title)
 	const [altIsValid, altErrorMessage] = isAltValid(alt)
@@ -47,7 +47,8 @@ const Admin = () => {
 		event.preventDefault(); 
 		try {
 			if (!image){
-				setImageIsDirty(true)
+				
+				setImageErrorMessage('Ingen fil är vald. Vänligen välj en fil i jpeg-format')
 				return
 			}
 			if (!alt){
@@ -132,7 +133,9 @@ const Admin = () => {
 							}}
 						/>
 					</label>
-					<div className="text-red">{imageErrorMessage}</div>
+					<div className="h-4">
+						{imageErrorMessage && !image && <div className="text-red">{imageErrorMessage} </div>}
+					</div>
 				</section>
 
 
@@ -154,7 +157,7 @@ const Admin = () => {
 								onBlur={() => setAltIsDirty(true)}/>
 						</div>
 					</label>
-					<div className="h-10 pt-2 text-red"> {altIsDirty ? altErrorMessage  : ''}</div>
+					<div className="h-4 pt-2 text-red"> {altIsDirty ? altErrorMessage  : ''}</div>
 				</section>
 
 
@@ -175,7 +178,7 @@ const Admin = () => {
 								onBlur={() => setTitleIsDirty(true)}/>
 						</div>
 					</label>
-					<div className="h-10 pt-2 text-red"> {titleIsDirty ? titleErrorMessage  : ''}</div>
+					<div className="h-4 pt-2 text-red"> {titleIsDirty ? titleErrorMessage  : ''}</div>
 				</section>
 
 
@@ -206,7 +209,9 @@ const Admin = () => {
 						/>
 							Svart/vit bild
 					</label>
-					 <div className="text-red">{colorErrorMessage}</div>
+					<div className="h-4">
+						{colorErrorMessage && !color && <div className="text-red ">{colorErrorMessage}</div>}
+						</div>
 					<div className="my-10 mx-auto ">
 						<p className="pb-4">När alla fält är ifyllda kan du lägga till en bild i databasen.</p>
 					<Button 
