@@ -14,7 +14,7 @@ const Header = () => {
 	}
 
 	return(
-		<header className="w-screen h-[150px] z-10 bg-white fixed drop-shadow-md">
+		<header className="w-full h-[150px] z-10 bg-white fixed drop-shadow-md">
 			<div className="sm: grid grid-rows-1 justify-items-center lg:flex justify-around items-center w-full h-full">
 				<div className="flex items-center">
 					<h1 className="font-display text-darkblue text-3xl sm:text-4xl lg:text-4xl">Bildstöd i vardagen</h1>
