@@ -15,7 +15,8 @@ const Admin = () => {
 	const [color, setColor] = useState('')
 	const [image, setImage] = useState('')
 	const [title, setTitle] = useState('')
-	const [uploadSuccess, setUploadSuccess] = useState(false); 
+	const [uploadSuccess, setUploadSuccess] = useState(false);
+	const [deleteSuccess, setDeleteSuccess] = useState(false) 
 	const [searchString, setSearchString] = useState('');
 	const [searchResult, setSearchResult] = useState([])
 	const [hasSearched, setHasSearched] =useState(false)
@@ -35,8 +36,13 @@ const Admin = () => {
 				setUploadSuccess(false); 
 			}, 3000)
 		}
+		if(deleteSuccess) {
+			timeoutId = setTimeout(() => {
+				setDeleteSuccess(false);
+			}, 3000)
+		}
 		return () => clearTimeout(timeoutId); 
-	}, [uploadSuccess])
+	}, [uploadSuccess, deleteSuccess])
 
 	const handleSubmit = async (event) => {
 		event.preventDefault(); 
@@ -87,14 +93,13 @@ const Admin = () => {
 		console.log('imageid:' , imageId);
 			try { 
 				await deleteImage(imageId)			
-			
+				setDeleteSuccess(true)
 			} catch {
 				console.error( {message: 'Failed to delete'})			
 			}
 	}
 
-	return(
-		
+	return(		
 		<section className="mt-10 flex flex-col w-full md:w-[500px] lg:w-[800px]">
 		<KeepLoggedIn />
 		<form>
@@ -199,7 +204,7 @@ const Admin = () => {
 				<Button 
 					onClick={handleSubmit}
 					>Lägg till</Button>
-				{uploadSuccess && <p>Bilden har laddats upp framgångsrikt!</p>}
+				{uploadSuccess && <p>Bilden har laddats upp.</p>}
 				</div>
 			</section>
 		</form>
@@ -222,7 +227,7 @@ const Admin = () => {
 			</label>
 			<div className="py-6">
 				<Button disabled={!searchString} onClick={handleSearch}>Sök</Button>
-				
+				{deleteSuccess && <p>Bilden har tagits bort från databasen</p> }
 				<p className="mt-4 ">{hasSearched ?"Klicka på den bilden du vill ta bort": ""}</p>
 			</div>
 			<div className="mt-5">

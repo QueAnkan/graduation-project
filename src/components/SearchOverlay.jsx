@@ -41,7 +41,7 @@ const SearchOverlay = ({isSearchOpen, handleCloseSearch, handleImageSelected, vi
 		setImageAdded(true)
 		setTimeout(() => {
 			setImageAdded(false);
-					}, 2000);
+					}, 3000);
 	}
 
 	const handleImageClick = (image) => {
