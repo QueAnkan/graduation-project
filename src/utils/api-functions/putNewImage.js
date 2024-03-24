@@ -14,6 +14,7 @@
 						"color": color,
 						"image": image,
 						"title": title,
+						"user": "admin"
 					} ]
 			}),
 		}); 

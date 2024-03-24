@@ -19,7 +19,7 @@ const SearchOverlay = ({isSearchOpen, handleCloseSearch, handleImageSelected, vi
 	const matchingImages = searchResult ? [...searchResult] : []
 	const visibleSearchError = searchIsDirty ? (!searchIsValid ? 'border border-red' : '') : ''
 
-	const addedClass = imageAdded ? "absolute top-1/3 mx-auto border border-lightgray rounded-md h-32 w-fit flex items-center px-8 z-10 bg-lightwhite shadow-lg shadow-lightwhite" : "hidden"
+	const addedClass = imageAdded ? "absolute top-1/3 mx-auto  rounded-md h-32 w-fit flex items-center px-8 z-10 bg-darkblue text-white font-bold shadow-lg shadow-lightwhite" : "hidden"
 
 	const handleOnChange = (event) => {	
 		const lowerCaseValue =event.target.value.toLowerCase()

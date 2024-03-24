@@ -96,7 +96,7 @@ const WeekdayCard = (props) => {
 		</section>
 
 
-		<section className={`${bgColorClassName} flex flex-col rounded-md w-10/12 mx-auto my-4 px-4 py-10 md:w-fit md:px-16`} >
+		<section className={`${bgColorClassName} flex flex-col rounded-md border border-darkgray w-10/12 mx-auto my-4 px-4 py-10 md:w-fit md:px-16`} >
 			<section className="flex flex-col items-center w-fit mx-auto">	
 				<ImageContainer 
 					images={selectedImages} 	

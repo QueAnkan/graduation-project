@@ -204,7 +204,7 @@ const Admin = () => {
 				<Button 
 					onClick={handleSubmit}
 					>Lägg till</Button>
-				{uploadSuccess && <p>Bilden har laddats upp.</p>}
+				{uploadSuccess && <p className="h-4 rounded-md bg-darkblue text-white font-bold shadow-lg shadow-lightwhite">Bilden har laddats upp.</p>}
 				</div>
 			</section>
 		</form>
@@ -227,9 +227,9 @@ const Admin = () => {
 			</label>
 			<div className="py-6">
 				<Button disabled={!searchString} onClick={handleSearch}>Sök</Button>
-				{deleteSuccess && <p>Bilden har tagits bort från databasen</p> }
 				<p className="mt-4 ">{hasSearched ?"Klicka på den bilden du vill ta bort": ""}</p>
 			</div>
+				{deleteSuccess && <p className="h-4 rounded-md bg-darkblue text-white font-bold shadow-lg shadow-lightwhite">Bilden har tagits bort från databasen</p> }
 			<div className="mt-5">
 				<ul className="max-w-xl p-4 sm:flex flex-cols"> 
 					{matchingImages.length > 0 ? (
@@ -253,7 +253,6 @@ const Admin = () => {
 				</ul> 
 			</div>			
 		</div>
-<LogOut/>
 		</section>
 	)
 }
