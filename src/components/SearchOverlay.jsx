@@ -3,7 +3,7 @@ import { MdOutlineClose, MdSearch } from "react-icons/md";
 import Button from '../utils/style-generators/buttonGenerator';
 import getSearchImages from "../utils/api-functions/getSearchImages";
 import { isSearchValidation } from "../utils/validations/SearchValidation";
-import { p } from "@antfu/utils";
+
 
 const SearchOverlay = ({isSearchOpen, handleCloseSearch, handleImageSelected, view}) => {
 	if(!isSearchOpen) {
@@ -41,7 +41,7 @@ const SearchOverlay = ({isSearchOpen, handleCloseSearch, handleImageSelected, vi
 		setImageAdded(true)
 		setTimeout(() => {
 			setImageAdded(false);
-					}, 2000);
+					}, 3000);
 	}
 
 	const handleImageClick = (image) => {
@@ -87,9 +87,10 @@ const SearchOverlay = ({isSearchOpen, handleCloseSearch, handleImageSelected, vi
 					 	<ul className="max-w-xl p-4 sm:flex flex-cols"> 
 							{matchingImages.length > 0 ? (
 								matchingImages.map((image) => (
-								<li key={image.imageId} onClick={() => handleImageClick(image)} className="max-w-60 bg-lightwhite m-3 rounded-md cursor-pointer"> 
+									<li className="max-w-60 bg-lightwhite m-3 rounded-md cursor-pointer"
+									key={image.imageId} onClick={() => handleImageClick(image)} > 
 									<img src={image.imageUrl} alt={image.alt} />
-									<h3 className="text-center font-bold bg-white">{image.title}</h3>
+										<h3 className="text-center font-bold bg-white">{image.title}</h3>
 								</li>
 
 								))

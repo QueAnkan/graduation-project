@@ -1,7 +1,7 @@
 
 
 export function isSearchValidation(searchString) {
-	const allowedChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖabcdefghijklmnopqrstuvwxyzåäö1234567890'
+	const allowedChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖabcdefghijklmnopqrstuvwxyzåäö1234567890 '
 
 	const isCharAllowed = (char) => allowedChars.includes(char)
 
