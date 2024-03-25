@@ -14,7 +14,7 @@ const Button = ({children, style = 'default', ...props }) => {
 	}
 
 	return(
-	<button className= {`btn ${styleClass}`} {...props}>{children}</button>
+		<button className= {`btn ${styleClass}`} {...props}>{children}</button>
 	)
 }
 

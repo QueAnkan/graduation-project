@@ -1,5 +1,4 @@
 
-
 const getBgColor = (view) => {
 	switch(view) {
 		case 'Måndag':
@@ -20,4 +19,4 @@ const getBgColor = (view) => {
 	
 	}
 
-	export default getBgColor
+export default getBgColor
