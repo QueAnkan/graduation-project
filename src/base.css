@@ -8,9 +8,7 @@
 	li {
 		@apply p-4
 	}
-	/* p {
-		@apply p-3
-	} */
+
 	html {
 		font-family: "Wix Madefor Display", sans-serif; 
 	}
@@ -19,7 +17,6 @@
 	}
 	body {
 		min-height: 100vh;
-	/* 	min-height: 100svh; */
 		background-color: #F8F8F4 /* lightgray */;
 	}
 	p{

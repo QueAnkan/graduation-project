@@ -10,9 +10,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
       manifest: {
-        name: 'Daily routines picture schedule',
-        short_name: 'pictureSchedule',
-        description: 'App with support pictures for daily routines',
+        name: 'Bildstöd i vardagen',
+        short_name: 'bildStöd',
+        description: 'App för att bygga veckoschema med bildstöd',
         theme_color: '#ffffff',
         icons: [
             {
