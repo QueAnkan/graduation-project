@@ -21,7 +21,7 @@ const Navigation = () => {
 						onClick={handleOnclick}
 						tabIndex={0}
 						className="grid justify-items-center p-2 text-[10px] text-darkblue cursor-pointer"><MdEdit className='size-7'/> Redigera veckovy</li>
-					<NavLink to="/login" className="grid justify-items-center p-2 text-[10px] text-darkblue"><MdPerson className='size-7'/> Admin</NavLink>
+					<NavLink to="/admin" className="grid justify-items-center p-2 text-[10px] text-darkblue"><MdPerson className='size-7'/> Admin</NavLink>
 				</ul> 
 				</nav>
 		</div>
