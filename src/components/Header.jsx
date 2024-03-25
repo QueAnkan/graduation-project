@@ -1,7 +1,6 @@
 import {MdHomeFilled, MdCalendarToday, MdEdit, MdPerson, MdFacebook} from 'react-icons/md'
 import { FaInstagram } from "react-icons/fa";
 import { useVisibilityStatus } from '../utils/VisibleElementProvider'
-
 import { NavLink } from 'react-router-dom';
 
 const Header = () => {
@@ -20,15 +19,22 @@ const Header = () => {
 					<h1 className="font-display text-darkblue text-3xl sm:text-4xl lg:text-4xl">Bildstöd i vardagen</h1>
 				</div>
 				<nav>
-				<ul className="hidden lg:flex"  >
-					<NavLink to="/"><li className="grid justify-items-center text-sm text-darkblue "> <MdHomeFilled className='size-7' />Till startsida </li></NavLink>
-					<NavLink to="/monday"><li className="grid justify-items-center text-sm text-darkblue"><MdCalendarToday className='size-7'/> Min veckovy</li></NavLink>
-					<li 
-						onClick={handleOnclick}
-						tabIndex={0}
-						className="grid justify-items-center text-sm text-darkblue cursor-pointer focus:focus	"><MdEdit className='size-7'/> Redigera veckovy</li>			
-					<NavLink to="/admin"><li className="grid justify-items-center text-sm text-darkblue"><MdPerson className='size-7'/> Admin</li></NavLink>
-				</ul> 
+					<ul className="hidden lg:flex"  >
+						<NavLink to="/">
+							<li className="grid justify-items-center text-sm text-darkblue "> <MdHomeFilled className='size-7' />Till startsida </li>
+						</NavLink>
+						<NavLink to="/monday">
+							<li className="grid justify-items-center text-sm text-darkblue"><MdCalendarToday className='size-7'/> Min veckovy</li>
+						</NavLink>
+						<li 
+							onClick={handleOnclick}
+							tabIndex={0}
+							className="grid justify-items-center text-sm text-darkblue cursor-pointer focus:focus	"><MdEdit className='size-7'/> Redigera veckovy
+						</li>			
+						<NavLink to="/admin">
+							<li className="grid justify-items-center text-sm text-darkblue"><MdPerson className='size-7'/> Admin</li>
+						</NavLink>
+					</ul> 
 				</nav>
 				<div className="hidden lg:flex">
 					<div className='flex flex-col'>
@@ -43,7 +49,6 @@ const Header = () => {
 			</div>
 		</header>
 	)
-
 }
 
 export default Header

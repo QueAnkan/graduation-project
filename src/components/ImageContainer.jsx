@@ -13,68 +13,38 @@ const ImageContainer = ({ images, handleImageDelete }) => {
 
 	return (
 		<>
-		<ul className={`grid gap-16  min-w-[230px] max-w-[230px] min-h-[230px] relative sm:min-w-72 sm:max-w-72 sm:min-h-72 md:min-w-80 md:max-w72 md:min-h-80 ${images.length > 0 ? "border-0" : "border border-darkblue rounded-sm bg-white" }`}>
-			{images.map((image, index) => (
-				<li key={index} className="relative p-0">
-					<span className="absolute right-0">
-						{isVisible && (
-							<Button 
-							style="delete" 	/* className="bg-white" */ onClick={() => handleDelete(index)}>
-								<p>Ta bort bild</p>
+			<ul className={`grid gap-16  min-w-[230px] max-w-[230px] min-h-[230px] relative sm:min-w-72 sm:max-w-72 sm:min-h-72 md:min-w-80 md:max-w72 md:min-h-80 ${images.length > 0 ? "border-0" : "border border-darkblue rounded-sm bg-white" }`}>
+				{images.map((image, index) => (
+					<li key={index} className="relative p-0">
+						<span className="absolute right-0">
+							{isVisible && (
+								<Button 
+									style="delete" 
+									onClick={() => handleDelete(index)}>
+									<p>Ta bort bild</p>
+									<p><RiDeleteBin6Line size={30} /></p>
+								</Button>
+							)}
+						</span>
+						<div className="border border-darkblue rounded-sm bg-white text-center">
+							<img  src={image.imageUrl} alt={image.alt} />
+							<p className="text-xl font-bold">{image.title}</p>
+						</div>
+						<span className=" absolute right-0">
+							<Button style="transparent" >
+								<p>Detaljerad vy</p>
 								<p>
-									<RiDeleteBin6Line size={30} />
+									<HiOutlineSquare2Stack size={40} />
 								</p>
 							</Button>
-						)}
-					</span>
-					<div className="border border-darkblue rounded-sm bg-white text-center">
-					<img  src={image.imageUrl} alt={image.alt} />
-					<p className="text-xl font-bold">{image.title}</p>
-					</div>
-		<span className=" absolute right-0">
-			<Button style="transparent" >
-				<p>Detaljerad vy</p>
-				<p>
-					<HiOutlineSquare2Stack size={40} />
-				</p>
-			</Button>
-		</span>
-				</li>
-			))}
-		</ul>
-	</>
-);
+						</span>
+					</li>
+				))}
+			</ul>
+		</>
+	);
 };
 
 
 export default ImageContainer
 
-/*Gamla koden här
-
-
-const ImageContainer = ({ image }) => {
-	const {isVisible} = useVisibilityStatus()
-
-	//tomma array:er där alla bilder pushas in beroende på view(veckodag)
-	//mappa ut varje array nedan (lägg en ul runt koden och gör li-element av befintlig kod)
-
-	return(
-
-		<>
-				<div className=" grid bg-lightgray rounded-sm min-w-[230px] max-w-[230px] min-h-[230px] relative sm:min-w-72 sm:max-w-72 sm:min-h-72 md:min-w-80 md:max-w72 md:min-h-80">
-					<span className="absolute right-0">
-						{isVisible && <Button style="transparent">
-							<p>Ta bort bild </p> 
-							<p > <RiDeleteBin6Line size={30} /> </p>
-						</Button>}
-					</span>
-					<img src={image.imageUrl} alt={image.alt}/>
-				</div>
-				<span className="self-end">
-					<Button style="transparent" ><p>Detaljerad vy</p>
-					<p><HiOutlineSquare2Stack  size={40} /></p></Button>
-				</span>
-			
-		</>
-	)
-}*/

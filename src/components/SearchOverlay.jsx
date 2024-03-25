@@ -61,46 +61,43 @@ const SearchOverlay = ({isSearchOpen, handleCloseSearch, handleImageSelected, vi
 					<p>Välj vilken typ av bilder du vill se. Skriv sedan ett sökord som beskriver vad bilden ska användas till ex. frukost. </p>
 				</div>
 				<div className="relative m-1 flex-col">	
-						<label  htmlFor="search">
-							<span className="font-bold text-1xl">Sök</span>
-							<div className="flex items-center border border-darkgray rounded-md px-2 py-2 "> 
-								<div className="h-8 w-8">
-									<MdSearch size={30}/>
-								</div>
-								<input
-									placeholder="ex. frukost"
-									id="search"
-									type="text" 
-									value = {searchString}
-									onChange={handleOnChange}
-									onBlur={() => setSearchIsDirty(true)}
-									className={`w-full h-9 text-lg ${visibleSearchError}`}
-									/>
-							</div>
-						</label>
-						<div className="h-10 pt-2 text-red"> {searchIsDirty ? searchErrorMessage  : ''} </div>
+					<label  htmlFor="search">
+						<span className="font-bold text-1xl">Sök</span>
+						<div className="flex items-center border border-darkgray rounded-md px-2 py-2 "> 
+							<div className="h-8 w-8"><MdSearch size={30}/></div>
+							<input
+								placeholder="ex. frukost"
+								id="search"
+								type="text" 
+								value = {searchString}
+								onChange={handleOnChange}
+								onBlur={() => setSearchIsDirty(true)}
+								className={`w-full h-9 text-lg ${visibleSearchError}`}
+							/>
+						</div>
+					</label>
+					<div className="h-10 pt-2 text-red"> {searchIsDirty ? searchErrorMessage  : ''} </div>
 					<div className="text-center p-3 mt-8">
 						<Button disabled={!searchString} onClick={handleSearch}>Sök</Button>
 						<p className="mt-6 font-bold ">{hasSearched ?"Klicka på den bild du vill lägga till": ""}</p>
 					</div>		
 					<div>
-					 	<ul className="max-w-xl p-4 sm:flex flex-cols"> 
+						<ul className="max-w-xl p-4 sm:flex flex-cols"> 
 							{matchingImages.length > 0 ? (
 								matchingImages.map((image) => (
 									<li className="max-w-60 bg-lightwhite m-3 rounded-md cursor-pointer"
-									key={image.imageId} onClick={() => handleImageClick(image)} > 
-									<img src={image.imageUrl} alt={image.alt} />
+										key={image.imageId} 
+										onClick={() => handleImageClick(image)} > 
+										<img src={image.imageUrl} alt={image.alt} />
 										<h3 className="text-center font-bold bg-white">{image.title}</h3>
-								</li>
-
+									</li>
 								))
 							) : (
 								hasSearched ? "Inga resultat matchade sökningen" : " "
 							)}
 						</ul> 
 					</div>
-				</div>
-				
+				</div>				
 			</div>
 			<div className={`${addedClass}`}>{!imageAdded ?<p></p>: <p>Bilden är tillagd i ditt schema</p> }</div>
 		</section>
@@ -108,6 +105,3 @@ const SearchOverlay = ({isSearchOpen, handleCloseSearch, handleImageSelected, vi
 }
 
 export default SearchOverlay
-
-
-/* Glöm inte att låsa knappen innan man sökt!!! */
