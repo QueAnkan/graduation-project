@@ -4,7 +4,7 @@ import adultChild from '../assets/adultandchild.jpg'
 const LandingPage = () => {
 
 	return (
-		<section className='flex flex-col min-h-screen sm:justify-start lg:justify-center'>
+		<section className='flex flex-col lg:mt-[150px] sm:justify-start lg:justify-center'>
 			<div className='m-2 sm:grid sm:grid-cols-2 gap-8 items-center sm:mt-5'>
 				<img 
 					src={fiveKids} 
@@ -21,7 +21,7 @@ const LandingPage = () => {
 				<img 
 					src={adultChild}
 					alt="Female adult and a child sitting together and look at a mobilephone"
-					className='rounded-md w-full h-auto max-w-sm mx-auto sm:order-last sm:max-w-full md:w-full lg:w-full'/>
+					className='rounded-md w-full h-auto max-w-sm mx-auto sm:order-last sm:max-w-full md:w-full lg:w-11/12'/>
 				<article className='max-w-md sm:order-first md:flex justify-center items-center md:items-center mx-auto'>
 					<p className='p-2'>Börja skapa veckoschema med bilder redan nu och få vardagen att bli enklare. Låt barnen vara med och utforska sitt schema. Att göra dem delaktiga hjälper dem att känna sig mer förberedda och trygga.  </p> 
 				</article>

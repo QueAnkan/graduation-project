@@ -196,7 +196,9 @@ const Admin = () => {
 							onClick={handleSubmit}>
 							Lägg till
 						</Button>
-						{uploadSuccess && <p className="h-4 rounded-md bg-darkblue text-white font-bold shadow-lg shadow-lightwhite">Bilden har laddats upp.</p>}
+						<div className="h-10 w-fit">
+							{uploadSuccess && <p className="p-2 rounded-md bg-darkblue text-white font-bold shadow-lg shadow-lightwhite">Bilden har laddats upp.</p>}
+						</div>
 					</div>
 				</section>
 			</form>
@@ -223,7 +225,9 @@ const Admin = () => {
 					</Button>
 					<p className="mt-4 ">{hasSearched ?"Klicka på den bilden du vill ta bort": ""}</p>
 				</div>
-				{deleteSuccess && <p className="h-4 rounded-md bg-darkblue text-white font-bold shadow-lg shadow-lightwhite">Bilden har tagits bort från databasen</p> }
+				<div className="h-12 w-fit">
+					{deleteSuccess && <p className=" p-2 rounded-md bg-darkblue text-white font-bold shadow-lg shadow-lightwhite">Bilden har tagits bort från databasen</p> }
+				</div>
 				<div className="mt-5">
 					<ul className="max-w-xl p-4 sm:flex flex-cols"> 
 						{matchingImages.length > 0 ? (
