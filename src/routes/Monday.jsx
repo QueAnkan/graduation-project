@@ -1,6 +1,5 @@
-
 import WeekdayCard from "../components/WeekdayCard";
-import VisibleElementProvider from "../utils/VisibleElementProvider";
+
 
 const Monday = () => {
 	return(

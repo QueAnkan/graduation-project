@@ -5,8 +5,6 @@ import Button from '../utils/style-generators/buttonGenerator'
 import { putNewImage } from "../utils/api-functions/putNewImage";
 import getSearchImages from "../utils/api-functions/getSearchImages";
 import {deleteImage} from '../utils/api-functions/deleteImage'
-import KeepLoggedIn from "../utils/login/KeepLoggedIn";
-import LogOut from "../utils/login/Logout";
 import { isTitleValid, isAltValid } from "../utils/validations/UploadValidation";
 
 
@@ -47,8 +45,7 @@ const Admin = () => {
 	const handleSubmit = async (event) => {
 		event.preventDefault(); 
 		try {
-			if (!image){
-				
+			if (!image){			
 				setImageErrorMessage('Ingen fil är vald. Vänligen välj en fil i jpeg-format')
 				return
 			}
@@ -73,7 +70,6 @@ const Admin = () => {
 
 	const matchingImages = searchResult ? [...searchResult] : []
 
-
 	const handleOnChange = (event) => {
 			setSearchString(event.target.value)
 	}
@@ -90,7 +86,6 @@ const Admin = () => {
 	}	
 	
 	const handleDeleteImage = async (imageId) => {
-		console.log('imageid:' , imageId);
 			try { 
 				await deleteImage(imageId)			
 				setDeleteSuccess(true)
@@ -101,158 +96,157 @@ const Admin = () => {
 
 	return(		
 		<section className="mt-10 flex flex-col w-full md:w-[500px] lg:w-[800px]">
-		<KeepLoggedIn />
-		<form>
-			<section className="mb-10">
-				<div className="flex flex-col"> 
-					<h1 className="font-bold mt-5 text-xl mb-6" >Lägga till nya bilder i databasen</h1>
-				</div>
-				<label htmlFor="imageFile">
-					<h2 className="font-bold">Välj en fil i jpg/jpeg-format: </h2>
-					<input
-						id="imageFile"
-						type="file"
-						accept="image/jpg, img/jpeg"
-						className="text-md block w-full 
-						file:mr-4 file:py-2 file:px-4 file:rounded-md
-						file:border-0 file:text-md
-						file:bg-darkblue file:text-white"
-						onChange={(event) => {
-							const file = event.target.files[0]; 
-							if(file) {
-								const reader = new FileReader(); 
-								reader.readAsDataURL(file); 
-								reader.onload = () => {
-									const base64String = reader.result.split(',')[1]; 
-									setImage(base64String)
+			<form>
+				<section className="mb-10">
+					<div className="flex flex-col"> 
+						<h1 className="font-bold mt-5 text-xl mb-6" >Lägga till nya bilder i databasen</h1>
+					</div>
+					<label htmlFor="imageFile">
+						<h2 className="font-bold">Välj en fil i jpg/jpeg-format: </h2>
+						<input
+							id="imageFile"
+							type="file"
+							accept="image/jpg, img/jpeg"
+							className="text-md block w-full file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-md file:bg-darkblue file:text-white"
+							onChange={(event) => {
+								const file = event.target.files[0]; 
+								if(file) {
+									const reader = new FileReader(); 
+									reader.readAsDataURL(file); 
+									reader.onload = () => {
+										const base64String = reader.result.split(',')[1]; 
+										setImage(base64String)
+									}
 								}
-							}
-						}}
-					/>
-				</label>
-				<div className="h-4">
-					{imageErrorMessage && !image && <div className="text-red">{imageErrorMessage} </div>}
-				</div>
-			</section>
-			<section className="mb-10">
-				<label htmlFor="altText">
-					<h2  className="font-bold">Alternativ text</h2>
-					<p className="text-md w-80 md:w-11/12 lg:w-3/4">Texten beskriver innehållet i bilden och hjälper personer med synnedsättning att förstå dess betydelse</p>
-					<div className="flex items-center border border-darkgray rounded-md px-2 py-2 w-72 lg:w-1/2">
-						<input
-							id="altText"
-							type="text"
-							name="alt"
-							className="w-full h-9 text-base"
-							placeholder="ex. Färgad bild av en tallrik med flingor och ett glas mjölk. max 150 tecken " 
-							max={120}
-							onChange={(event) => setAlt(event.target.value)}
-							onBlur={() => setAltIsDirty(true)}/>
+							}}
+						/>
+					</label>
+					<div className="h-4">
+						{imageErrorMessage && !image && <div className="text-red">{imageErrorMessage} </div>}
 					</div>
-				</label>
-				<div className="h-4 pt-2 text-red"> {altIsDirty ? altErrorMessage  : ''}</div>
-			</section>
-			<section className="mb-10">
-				<label htmlFor="title">
-					<h2 className="font-bold">Titel</h2>
-					<p>Skriv den titel som ska vara till bilden</p>
-					<div className="flex items-center border border-darkgray rounded-md p-2 w-72 lg:w-1/2">
-						<input
-							id="title"
-							type="text"
-							name="title"
-							className="w-full h-9 text-base"
-							placeholder="ex. frukost" 
-							maxLength={35}
-							onChange={(event) => setTitle(event.target.value)}
-							onBlur={() => setTitleIsDirty(true)}/>
-					</div>
-				</label>
-				<div className="h-4 pt-2 text-red"> {titleIsDirty ? titleErrorMessage  : ''}</div>
-			</section>
-			<section className="mb-16">
+				</section>
+				<section className="mb-10">
+					<label htmlFor="altText">
+						<h2  className="font-bold">Alternativ text</h2>
+						<p className="text-md w-80 md:w-11/12 lg:w-3/4">Texten beskriver innehållet i bilden och hjälper personer med synnedsättning att förstå dess betydelse</p>
+						<div className="flex items-center border border-darkgray rounded-md px-2 py-2 w-72 lg:w-1/2">
+							<input
+								id="altText"
+								type="text"
+								name="alt"
+								className="w-full h-9 text-base"
+								placeholder="ex. Färgad bild av en tallrik med flingor och ett glas mjölk. max 150 tecken " 
+								max={120}
+								onChange={(event) => setAlt(event.target.value)}
+								onBlur={() => setAltIsDirty(true)}/>
+						</div>
+					</label>
+					<div className="h-4 pt-2 text-red"> {altIsDirty ? altErrorMessage  : ''}</div>
+				</section>
+				<section className="mb-10">
+					<label htmlFor="title">
+						<h2 className="font-bold">Titel</h2>
+						<p>Skriv den titel som ska vara till bilden</p>
+						<div className="flex items-center border border-darkgray rounded-md p-2 w-72 lg:w-1/2">
+							<input
+								id="title"
+								type="text"
+								name="title"
+								className="w-full h-9 text-base"
+								placeholder="ex. frukost" 
+								maxLength={35}
+								onChange={(event) => setTitle(event.target.value)}
+								onBlur={() => setTitleIsDirty(true)}/>
+						</div>
+					</label>
+					<div className="h-4 pt-2 text-red"> {titleIsDirty ? titleErrorMessage  : ''}</div>
+				</section>
+				<section className="mb-16">
 					<div className="mb-4">
 						<h2 className="font-bold">Ange om bilden är i färg eller svart/vit</h2>
 					</div>
-				<label htmlFor="colorCheckbox" className="mr-4">
-					<input 
-						id="colorCheckbox"
-						type="checkbox"
-						value="color"
-						className="m-2"
-						checked={color === 'color'}
-						onChange={(event) => setColor(event.target.checked ? 'color': '')}
+					<label htmlFor="colorCheckbox" className="mr-4">
+						<input 
+							id="colorCheckbox"
+							type="checkbox"
+							value="color"
+							className="m-2"
+							checked={color === 'color'}
+							onChange={(event) => setColor(event.target.checked ? 'color': '')}
 						/>
 						Färgbild
-				</label>
-				<label  htmlFor="bwCheckbox">
-					<input 
-					id="bwCheckbox"
-					type="checkbox"
-					value="bw"
-					checked={color === 'bw'}
-					onChange={(event) => setColor(event.target.checked ? 'bw' : '')}
-					className="m-2"
-					/>
-						Svart/vit bild
-				</label>
-				<div className="h-4">
-					{colorErrorMessage && !color && <div className="text-red ">{colorErrorMessage}</div>}
-					</div>
-				<div className="my-10 mx-auto ">
-					<p className="pb-4">När alla fält är ifyllda kan du lägga till en bild i databasen.</p>
-				<Button 
-					onClick={handleSubmit}
-					>Lägg till</Button>
-				{uploadSuccess && <p className="h-4 rounded-md bg-darkblue text-white font-bold shadow-lg shadow-lightwhite">Bilden har laddats upp.</p>}
-				</div>
-			</section>
-		</form>
-		<div className="flex flex-col items-start">
-			<label htmlFor="search" className="w-full">			
-				<h2 className="font-bold">För att ta bort en bild, sök i databasen</h2>
-				<div className="flex items-center border border-darkgray rounded-md p-2 w-72 lg:w-1/2"> 
-					<div className="h-8 w-8">
-						<MdSearch size={30}/>
-					</div>
-					<input
-						placeholder="ex. frukost"
-						id="search"
-						type="text" 
-						value = {searchString}
-						onChange={handleOnChange}
-						className="w-full h-9 text-base"
+					</label>
+					<label htmlFor="bwCheckbox">
+						<input 
+							id="bwCheckbox"
+							type="checkbox"
+							value="bw"
+							checked={color === 'bw'}
+							onChange={(event) => setColor(event.target.checked ? 'bw' : '')}
+							className="m-2"
 						/>
+						Svart/vit bild
+					</label>
+					<div className="h-4">
+						{colorErrorMessage && !color && <div className="text-red ">{colorErrorMessage}</div>}
+					</div>
+					<div className="my-10 mx-auto ">
+						<p className="pb-4">När alla fält är ifyllda kan du lägga till en bild i databasen.</p>
+						<Button 
+							onClick={handleSubmit}>
+							Lägg till
+						</Button>
+						{uploadSuccess && <p className="h-4 rounded-md bg-darkblue text-white font-bold shadow-lg shadow-lightwhite">Bilden har laddats upp.</p>}
+					</div>
+				</section>
+			</form>
+			<div className="flex flex-col items-start">
+				<label htmlFor="search" className="w-full">			
+					<h2 className="font-bold">För att ta bort en bild, sök i databasen</h2>
+					<div className="flex items-center border border-darkgray rounded-md p-2 w-72 lg:w-1/2"> 
+						<div className="h-8 w-8"><MdSearch size={30}/></div>
+						<input
+							placeholder="ex. frukost"
+							id="search"
+							type="text" 
+							value = {searchString}
+							onChange={handleOnChange}
+							className="w-full h-9 text-base"
+						/>
+					</div>
+				</label>
+				<div className="py-6">
+					<Button 
+						disabled={!searchString} 
+						onClick={handleSearch}>
+						Sök
+					</Button>
+					<p className="mt-4 ">{hasSearched ?"Klicka på den bilden du vill ta bort": ""}</p>
 				</div>
-			</label>
-			<div className="py-6">
-				<Button disabled={!searchString} onClick={handleSearch}>Sök</Button>
-				<p className="mt-4 ">{hasSearched ?"Klicka på den bilden du vill ta bort": ""}</p>
-			</div>
 				{deleteSuccess && <p className="h-4 rounded-md bg-darkblue text-white font-bold shadow-lg shadow-lightwhite">Bilden har tagits bort från databasen</p> }
-			<div className="mt-5">
-				<ul className="max-w-xl p-4 sm:flex flex-cols"> 
-					{matchingImages.length > 0 ? (
-						matchingImages.map((image) => (
-							<li className="max-w-60 bg-lightwhite m-3 rounded-md" 
-								key={image.imageId}>		
-								<img src={image.imageUrl} alt={image.alt} 
-								/>
-								<h3 className="text-center font-bold bg-white">{image.title}</h3>
-								<Button 
-									className="flex items-center pt-2 mx-auto"
-									onClick={() => handleDeleteImage(image.imageId)}
-									style="transparent">
+				<div className="mt-5">
+					<ul className="max-w-xl p-4 sm:flex flex-cols"> 
+						{matchingImages.length > 0 ? (
+							matchingImages.map((image) => (
+								<li 
+									className="max-w-60 bg-lightwhite m-3 rounded-md" 
+									key={image.imageId}>		
+									<img src={image.imageUrl} alt={image.alt} />
+									<h3 className="text-center font-bold bg-white">{image.title}</h3>
+									<Button 
+										className="flex items-center pt-2 mx-auto"
+										onClick={() => handleDeleteImage(image.imageId)}
+										style="transparent">
 										<p>Ta bort bild </p> 
-										<p><RiDeleteBin6Line size={30} /> </p>
-								</Button>
-							</li>
-						))
-						) : (hasSearched ? "Inga resultat matchade sökningen" : " ")	
-					}
-				</ul> 
-			</div>			
-		</div>
+										<p><RiDeleteBin6Line size={30} /></p>
+									</Button>
+								</li>
+							))
+							) : (hasSearched ? "Inga resultat matchade sökningen" : " ")	
+						}
+					</ul> 
+				</div>			
+			</div>
 		</section>
 	)
 }

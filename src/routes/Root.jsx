@@ -8,16 +8,16 @@ import VisibleElementProvider from "../utils/VisibleElementProvider";
 const Root = () => {
 
 	return(
-<VisibleElementProvider>
-	<div className="flex flex-col">
-		<Header/>
-		<main className="mt-[150px] mb-20 mx-auto max-w-5xl h-fit  relative">
-			<Outlet/>
-			<Footer/>
-		</main>	
-		<Navigation/>
-	</div>
-	</VisibleElementProvider>
+		<VisibleElementProvider>
+			<div className="flex flex-col">
+				<Header/>
+				<main className="mt-[150px] mb-20 mx-auto max-w-5xl h-fit  relative">
+					<Outlet/>
+					<Footer/>
+				</main>	
+				<Navigation/>
+			</div>
+		</VisibleElementProvider>
 	)
 }
 

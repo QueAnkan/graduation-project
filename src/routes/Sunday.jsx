@@ -1,7 +1,6 @@
 
 import WeekdayCard from "../components/WeekdayCard";
 
-
 const Sunday = () => {
 	return(
 		<>
